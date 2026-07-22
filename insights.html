@@ -165,6 +165,17 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 /* Book a call */
 .call-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 36px; max-width: 560px; }
 .call-card .duration { display:inline-block; background: var(--sand); color: var(--charcoal); font-weight:700; font-size:0.8rem; padding:5px 12px; border-radius:999px; margin-bottom:16px; }
+
+/* Voice strip — the four ways to be heard, pinned in the header on every page */
+.voice-strip { background: #2a2420; border-top: 1px solid rgba(250,246,239,0.08); }
+.voice-strip .vs-inner { max-width: var(--max-width); margin: 0 auto; padding: 8px 28px; display: flex; align-items: center; gap: 6px 18px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.voice-strip .vs-inner::-webkit-scrollbar { display: none; }
+.voice-strip .vs-label { color: #c9beb2; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+.voice-strip a { display: inline-flex; align-items: center; gap: 7px; color: #faf6ef; text-decoration: none; font-size: 0.84rem; font-weight: 600; padding: 5px 13px; border: 1px solid rgba(250,246,239,0.22); border-radius: 999px; white-space: nowrap; flex-shrink: 0; transition: border-color .15s ease, background .15s ease, color .15s ease; }
+.voice-strip a:hover, .voice-strip a:focus-visible { border-color: #d06a2a; color: #d06a2a; background: rgba(208,106,42,0.08); }
+.voice-strip a.vs-primary { background: #c1631f; border-color: #c1631f; }
+.voice-strip a.vs-primary:hover, .voice-strip a.vs-primary:focus-visible { background: #d06a2a; border-color: #d06a2a; color: #faf6ef; }
+@media (max-width: 560px) { .voice-strip .vs-label { display: none; } .voice-strip .vs-inner { padding: 8px 16px; } }
 </style>
 </head>
 <body>
@@ -182,6 +193,15 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 <li><a href="contact.html">Contact</a></li>
 </ul></nav>
   </div>
+<div class="voice-strip" aria-label="Ways to have your voice heard">
+  <div class="vs-inner">
+    <span class="vs-label">Have your voice heard:</span>
+    <a class="vs-primary" href="book-a-call.html"><span aria-hidden="true">&#128222;</span>Book a Call</a>
+    <a href="survey.html"><span aria-hidden="true">&#128203;</span>Quick Survey</a>
+    <a href="offices.html"><span aria-hidden="true">&#127968;</span>Drop In</a>
+    <a href="contact.html#home-visit"><span aria-hidden="true">&#128100;</span>Home Visit</a>
+  </div>
+</div>
 </header>
 
 <section class="frontdoor">
