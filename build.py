@@ -19,6 +19,8 @@ IMG = {
     "news2": "https://picsum.photos/seed/iraac-news2/700/500",
 }
 
+SURVEY_URL = "https://forms.gle/TQTjNc7kzJYXvPyy5"
+
 CSS = """
 :root {
   --charcoal: #201c1a;
@@ -233,7 +235,7 @@ def header(active):
 </header>
 """
 
-QUICKBAR = """<section class="frontdoor">
+QUICKBAR = f"""<section class="frontdoor">
   <div class="container">
     <div class="frontdoor-head">
       <h2>Get in Touch &mdash; Choose What Works for You</h2>
@@ -255,7 +257,7 @@ QUICKBAR = """<section class="frontdoor">
         <h3>Request a Home Visit</h3>
         <p>Ask an IRAAC officer to come to you, at a time that works.</p>
       </a>
-      <a class="fd-card" href="survey.html">
+      <a class="fd-card" href="{SURVEY_URL}">
         <span class="fd-icon">&#128203;</span>
         <h3>Complete a Survey</h3>
         <p>Tell us a bit about what you need &mdash; takes about two minutes.</p>
@@ -637,7 +639,7 @@ CONTACT = f"""
 <section>
   <div class="container">
     <div class="contact-grid" style="margin-bottom: 48px;">
-      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us a bit about what you need and we'll follow up.</p><a class="btn btn-primary" style="margin:0;" href="survey.html">Start Survey</a></div>
+      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us a bit about what you need and we'll follow up.</p><a class="btn btn-primary" style="margin:0;" href="{SURVEY_URL}">Start Survey</a></div>
       <div class="contact-card"><div class="icon">&#127968;</div><h3>Visit a Local Office</h3><p>Drop in and speak with your local IRAAC officer in person.</p><a class="btn btn-primary" style="margin:0;" href="offices.html">Find an Office</a></div>
       <div class="contact-card" id="home-visit"><div class="icon">&#128100;</div><h3>Request a Home Visit</h3><p>Ask an IRAAC officer to come to you, at a time that works.</p><a class="btn btn-primary" style="margin:0;" href="#home-visit-form">Request a Visit</a></div>
       <div class="contact-card"><div class="icon">&#128197;</div><h3>Book a Call</h3><p>Pick a time that suits you &mdash; we'll call you.</p><a class="btn btn-primary" style="margin:0;" href="book-a-call.html">Book a Time</a></div>
