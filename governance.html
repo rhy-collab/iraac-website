@@ -7,456 +7,96 @@
 <meta name="description" content="How IRAAC is governed and how it reports to funders and regulators." />
 <style>
 :root {
-  --charcoal: #262220;
-  --charcoal-soft: #3a332f;
+  --charcoal: #201c1a;
+  --charcoal-soft: #322b26;
   --cream: #faf6ef;
   --sand: #f0e6d6;
-  --ochre: #b5581f;
+  --ochre: #c1631f;
   --ochre-dark: #8f4416;
-  --green: #4f5d3a;
   --text: #2b2724;
   --muted: #6b625a;
-  --max-width: 1080px;
+  --max-width: 1120px;
 }
-
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text);
-  background: var(--cream);
-  line-height: 1.6;
-}
-
+body { margin: 0; font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; }
 a { color: inherit; }
-
 img { max-width: 100%; display: block; }
-
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* Header */
-header.site-header {
-  background: var(--charcoal);
-  color: var(--cream);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 24px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.wordmark {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  color: var(--cream);
-}
-
-.wordmark span {
-  color: var(--ochre);
-}
-
-nav.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 28px;
-  margin: 0;
-  padding: 0;
-}
-
-nav.main-nav a {
-  text-decoration: none;
-  color: var(--sand);
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.15s ease;
-}
-
-nav.main-nav a:hover,
-nav.main-nav a.active {
-  color: var(--ochre);
-}
-
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--cream);
-  font-size: 1.6rem;
-  cursor: pointer;
-}
-
-@media (max-width: 760px) {
-  nav.main-nav {
-    display: none;
-    width: 100%;
-    padding: 0 24px 18px;
-  }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+header.site-header { background: var(--charcoal); color: var(--cream); position: sticky; top: 0; z-index: 50; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: var(--max-width); margin: 0 auto; }
+.wordmark { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.06em; text-decoration: none; color: var(--cream); }
+.wordmark span { color: var(--ochre); }
+nav.main-nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; flex-wrap: wrap; }
+nav.main-nav a { text-decoration: none; color: var(--sand); font-size: 0.92rem; font-weight: 500; border-bottom: 2px solid transparent; padding-bottom: 4px; }
+nav.main-nav a:hover, nav.main-nav a.active { color: var(--ochre); border-bottom-color: var(--ochre); }
+.nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.6rem; cursor: pointer; }
+@media (max-width: 860px) {
+  nav.main-nav { display: none; width: 100%; padding: 0 0 14px; }
   nav.main-nav.open { display: block; }
-  nav.main-nav ul {
-    flex-direction: column;
-    gap: 14px;
-  }
+  nav.main-nav ul { flex-direction: column; gap: 12px; }
   .header-inner { flex-wrap: wrap; }
   .nav-toggle { display: block; }
 }
-
-/* Hero */
-.hero {
-  background: linear-gradient(120deg, var(--charcoal) 0%, var(--charcoal-soft) 100%);
-  color: var(--cream);
-  padding: 90px 0 70px;
-}
-
-.hero .container {
-  max-width: 780px;
-}
-
-.hero .eyebrow {
-  color: var(--ochre);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-}
-
-.hero h1 {
-  font-size: 2.6rem;
-  line-height: 1.15;
-  margin: 0 0 20px;
-}
-
-.hero p {
-  font-size: 1.15rem;
-  color: var(--sand);
-  max-width: 620px;
-}
-
-.page-hero {
-  background: var(--charcoal);
-  color: var(--cream);
-  padding: 60px 0 50px;
-}
-
-.page-hero .eyebrow {
-  color: var(--ochre);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.page-hero h1 {
-  font-size: 2.2rem;
-  margin: 0 0 12px;
-}
-
-.page-hero p {
-  color: var(--sand);
-  max-width: 640px;
-  font-size: 1.05rem;
-}
-
-/* Buttons */
-.btn {
-  display: inline-block;
-  padding: 13px 26px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-right: 14px;
-  margin-top: 10px;
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.btn-primary {
-  background: var(--ochre);
-  color: var(--cream);
-}
+.hero { position: relative; color: var(--cream); padding: 110px 0 90px; background-size: cover; background-position: center; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(20,16,14,0.88) 10%, rgba(32,28,26,0.55) 65%, rgba(32,28,26,0.35) 100%); z-index: -1; }
+.hero .container { max-width: 760px; }
+.eyebrow { color: var(--ochre); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; margin-bottom: 14px; }
+.hero h1 { font-size: 2.7rem; line-height: 1.15; margin: 0 0 20px; }
+.hero p { font-size: 1.15rem; color: var(--sand); max-width: 620px; }
+.page-hero { position: relative; color: var(--cream); padding: 70px 0 60px; background-size: cover; background-position: center; isolation: isolate; }
+.page-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(20,16,14,0.90) 20%, rgba(32,28,26,0.6) 100%); z-index: -1; }
+.page-hero h1 { font-size: 2.2rem; margin: 0 0 12px; }
+.page-hero p { color: var(--sand); max-width: 640px; font-size: 1.05rem; }
+.btn { display: inline-block; padding: 13px 26px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.95rem; margin-right: 14px; margin-top: 10px; }
+.btn-primary { background: var(--ochre); color: var(--cream); }
 .btn-primary:hover { background: var(--ochre-dark); }
-
-.btn-outline {
-  background: transparent;
-  color: var(--cream);
-  border: 1px solid rgba(250,246,239,0.5);
-}
+.btn-outline { background: transparent; color: var(--cream); border: 1px solid rgba(250,246,239,0.5); }
 .btn-outline:hover { border-color: var(--ochre); color: var(--ochre); }
-
-/* Sections */
-section {
-  padding: 64px 0;
-}
-
-section.alt {
-  background: var(--sand);
-}
-
-h2.section-title {
-  font-size: 1.9rem;
-  margin: 0 0 14px;
-}
-
-p.section-lead {
-  color: var(--muted);
-  max-width: 680px;
-  font-size: 1.05rem;
-  margin-bottom: 40px;
-}
-
-/* Cards grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 28px;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 8px;
-  padding: 28px;
-}
-
-.card h3 {
-  margin: 0 0 10px;
-  font-size: 1.2rem;
-  color: var(--ochre-dark);
-}
-
-.card p {
-  color: var(--muted);
-  font-size: 0.98rem;
-  margin: 0;
-}
-
-.card a.card-link {
-  display: inline-block;
-  margin-top: 14px;
-  font-weight: 600;
-  color: var(--ochre);
-  text-decoration: none;
-  font-size: 0.92rem;
-}
-
-/* Program detail blocks */
-.program-block {
-  padding: 48px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
+section { padding: 64px 0; }
+section.alt { background: var(--sand); }
+h2.section-title { font-size: 1.9rem; margin: 0 0 14px; }
+p.section-lead { color: var(--muted); max-width: 680px; font-size: 1.05rem; margin-bottom: 40px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+.card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden; }
+.card img { width: 100%; height: 160px; object-fit: cover; }
+.card .card-body { padding: 22px; }
+.card h3 { margin: 0 0 10px; font-size: 1.15rem; color: var(--ochre-dark); }
+.card p { color: var(--muted); font-size: 0.96rem; margin: 0; }
+.card a.card-link { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--ochre); text-decoration: none; font-size: 0.9rem; }
+.two-col { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+.two-col img { border-radius: 10px; width: 100%; height: 340px; object-fit: cover; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } .two-col img { height: 220px; } }
+.program-block { padding: 48px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
 .program-block:last-child { border-bottom: none; }
-
-.program-block h2 {
-  font-size: 1.7rem;
-  color: var(--ochre-dark);
-  margin: 0 0 6px;
-}
-
-.program-block .tag {
-  display: inline-block;
-  background: var(--sand);
-  color: var(--charcoal);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 3px;
-  margin-bottom: 14px;
-}
-
-.program-block p {
-  max-width: 720px;
-  color: var(--text);
-}
-
-/* Two column */
-.two-col {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
-  align-items: start;
-}
-
-@media (max-width: 760px) {
-  .two-col { grid-template-columns: 1fr; }
-}
-
-.stat-row {
-  display: flex;
-  gap: 36px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.stat {
-  min-width: 140px;
-}
-
-.stat .num {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--ochre);
-}
-
-.stat .label {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-blockquote.pullquote {
-  border-left: 3px solid var(--ochre);
-  padding-left: 20px;
-  font-size: 1.15rem;
-  color: var(--charcoal-soft);
-  font-style: italic;
-  margin: 30px 0;
-}
-
-.note-box {
-  background: var(--sand);
-  border-left: 4px solid var(--ochre);
-  padding: 18px 22px;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  color: var(--charcoal-soft);
-  margin: 24px 0;
-}
-
-/* Contact */
-.contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.contact-list li {
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.contact-list .role {
-  font-weight: 700;
-  color: var(--ochre-dark);
-  display: block;
-  margin-bottom: 4px;
-}
-
-form.contact-form {
-  display: grid;
-  gap: 16px;
-  max-width: 560px;
-}
-
-form.contact-form label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  display: block;
-  margin-bottom: 6px;
-}
-
-form.contact-form input,
-form.contact-form select,
-form.contact-form textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid rgba(0,0,0,0.15);
-  border-radius: 4px;
-  font-size: 0.95rem;
-  font-family: inherit;
-}
-
-/* News */
-.news-item {
-  padding: 26px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.news-item .date {
-  font-size: 0.82rem;
-  color: var(--ochre);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.news-item h3 {
-  margin: 6px 0 8px;
-}
-
-/* Footer */
-footer.site-footer {
-  background: var(--charcoal);
-  color: var(--sand);
-  padding: 48px 0 28px;
-  margin-top: 40px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.footer-grid h4 {
-  color: var(--cream);
-  margin: 0 0 12px;
-  font-size: 0.95rem;
-}
-
-.footer-grid ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
+.program-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 6px; }
+.program-hero img { border-radius: 10px; height: 280px; width: 100%; object-fit: cover; }
+@media (max-width: 860px) { .program-hero { grid-template-columns: 1fr; } .program-hero img { height: 200px; } }
+.program-block .tag { display: inline-block; background: var(--sand); color: var(--charcoal); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; margin-bottom: 12px; }
+.program-block h2 { font-size: 1.7rem; color: var(--ochre-dark); margin: 0 0 12px; }
+.note-box { background: var(--sand); border-left: 4px solid var(--ochre); padding: 18px 22px; border-radius: 4px; font-size: 0.95rem; color: var(--charcoal-soft); margin: 24px 0; }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+.contact-card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; padding: 26px; }
+.contact-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+.contact-card h3 { margin: 0 0 8px; font-size: 1.1rem; color: var(--ochre-dark); }
+.contact-card p { color: var(--muted); font-size: 0.93rem; margin: 0 0 14px; }
+form.contact-form { display: grid; gap: 16px; max-width: 560px; }
+form.contact-form label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px; }
+form.contact-form input, form.contact-form select, form.contact-form textarea { width: 100%; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; font-size: 0.95rem; font-family: inherit; }
+.news-item { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid rgba(0,0,0,0.08); align-items: center; }
+.news-item img { border-radius: 8px; height: 130px; width: 100%; object-fit: cover; }
+@media (max-width: 700px) { .news-item { grid-template-columns: 1fr; } .news-item img { height: 160px; } }
+.news-item .date { font-size: 0.8rem; color: var(--ochre); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.news-item h3 { margin: 6px 0 8px; }
+.acknowledgement { background: var(--charcoal-soft); color: var(--sand); font-size: 0.88rem; padding: 16px 0; }
+footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 48px 0 28px; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
+.footer-grid h4 { color: var(--cream); margin: 0 0 12px; font-size: 0.95rem; }
+.footer-grid ul { list-style: none; padding: 0; margin: 0; }
 .footer-grid li { margin-bottom: 8px; }
-
-.footer-grid a {
-  color: var(--sand);
-  text-decoration: none;
-  font-size: 0.92rem;
-}
-
+.footer-grid a { color: var(--sand); text-decoration: none; font-size: 0.92rem; }
 .footer-grid a:hover { color: var(--ochre); }
-
-.footer-bottom {
-  border-top: 1px solid rgba(250,246,239,0.12);
-  padding-top: 20px;
-  font-size: 0.82rem;
-  color: rgba(250,246,239,0.6);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.acknowledgement {
-  background: var(--charcoal-soft);
-  color: var(--sand);
-  font-size: 0.88rem;
-  padding: 16px 0;
-}
-
+.footer-bottom { border-top: 1px solid rgba(250,246,239,0.12); padding-top: 20px; font-size: 0.82rem; color: rgba(250,246,239,0.6); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 </style>
 </head>
 <body>
@@ -464,27 +104,23 @@ footer.site-footer {
   <div class="header-inner">
     <a href="index.html" class="wordmark">IRAAC<span>.</span></a>
     <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
+    <nav class="main-nav"><ul><li><a href="index.html">Home</a></li>
 <li><a href="about.html">Our Story</a></li>
 <li><a href="programs.html">Our Programs</a></li>
 <li><a href="governance.html" class="active">Governance & Reporting</a></li>
 <li><a href="support.html">Supporting Other Organisations</a></li>
 <li><a href="news.html">News</a></li>
 <li><a href="contact.html">Contact</a></li>
-
-      </ul>
-    </nav>
+</ul></nav>
   </div>
 </header>
 
 
-<section class="page-hero">
+<section class="page-hero" style="background-image:url('https://picsum.photos/seed/iraac-meeting/1200/800');">
   <div class="container">
     <div class="eyebrow">Accountability &amp; Transparency</div>
     <h1>Governance &amp; Reporting</h1>
-    <p>IRAAC is building consistent, evidence-based governance and reporting systems &mdash; so funders, regulators and community can see, clearly, that IRAAC is well run.</p>
+    <p>IRAAC is a charity, independently governed by its Board &mdash; here's how we run ourselves and report to funders and regulators.</p>
   </div>
 </section>
 
@@ -492,21 +128,16 @@ footer.site-footer {
   <div class="container two-col">
     <div>
       <h2 class="section-title">How IRAAC is Governed</h2>
-      <p>IRAAC is governed by a Board, chaired by the Chairperson and supported by the Secretary, meeting regularly using a standard agenda, minutes, decisions and actions framework. This consistency makes it easier for the Board to track decisions and easier for IRAAC to prove &mdash; to Aboriginal Affairs NSW, ORIC, ACNC and other funders &mdash; that governance is being taken seriously.</p>
+      <p>IRAAC is governed by a Board, chaired by the Chairperson and supported by the Secretary, meeting regularly using a standard agenda, minutes, decisions and actions framework.</p>
       <p>An annual independent Board evaluation process checks and improves IRAAC's governance every year, and Board Members, staff and community members all receive governance training relevant to their role.</p>
     </div>
-    <div class="card">
+    <div class="card"><div class="card-body">
       <h3>What We Report On</h3>
-      <ul style="padding-left: 18px; color: var(--muted);">
-        <li>Quarterly progress reports</li>
-        <li>Annual reports</li>
-        <li>Program acquittals</li>
-        <li>Audit reports</li>
-        <li>ORIC reports</li>
-        <li>ACNC reports</li>
-        <li>Funding body reports</li>
+      <ul style="padding-left: 18px; color: var(--muted); margin:0;">
+        <li>Quarterly progress reports</li><li>Annual reports</li><li>Program acquittals</li>
+        <li>Audit reports</li><li>ORIC &amp; ACNC reports</li><li>Funding body reports</li>
       </ul>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -515,56 +146,36 @@ footer.site-footer {
     <h2 class="section-title">Reports &amp; Policies</h2>
     <p class="section-lead">Publicly appropriate reports and key policies will be listed here as they're confirmed for release.</p>
     <div class="grid">
-      <div class="card">
-        <h3>Annual Report</h3>
-        <p>Add a link to IRAAC's most recent annual report once available.</p>
-      </div>
-      <div class="card">
-        <h3>Board Charter</h3>
-        <p>Add a link to IRAAC's Board Charter or governance policy once confirmed for public release.</p>
-      </div>
-      <div class="card">
-        <h3>Strategic Plan</h3>
-        <p>Add a link to IRAAC's current strategic plan once available.</p>
-      </div>
+      <div class="card"><div class="card-body"><h3>Annual Report</h3><p>Add a link once available.</p></div></div>
+      <div class="card"><div class="card-body"><h3>Board Charter</h3><p>Add a link once confirmed for public release.</p></div></div>
+      <div class="card"><div class="card-body"><h3>Strategic Plan</h3><p>Add a link once available.</p></div></div>
     </div>
     <div class="note-box">These documents should only be published once the Secretary and Board have confirmed they're appropriate for public release.</div>
   </div>
 </section>
 
 <div class="acknowledgement">
-  <div class="container">
-    IRAAC acknowledges the Traditional Custodians of the lands on which we work, live and gather, and pays respect to Elders past, present and emerging.
-  </div>
+  <div class="container">IRAAC acknowledges the Traditional Custodians of the lands on which we work, live and gather, and pays respect to Elders past, present and emerging.</div>
 </div>
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
-      <div>
-        <h4>IRAAC</h4>
-        <ul>
-          <li><a href="about.html">Our Story</a></li>
-          <li><a href="governance.html">Governance &amp; Reporting</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Our Programs</h4>
-        <ul>
-          <li><a href="programs.html#mcc">MCC &mdash; Mob and Country Connections</a></li>
-          <li><a href="programs.html#youthscape">YouthScape</a></li>
-          <li><a href="programs.html#thecrew">The Crew</a></li>
-          <li><a href="programs.html#darc">DARC</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Get Involved</h4>
-        <ul>
-          <li><a href="support.html">Support for Aboriginal Community Organisations</a></li>
-          <li><a href="news.html">Latest Updates</a></li>
-          <li><a href="contact.html">Get in Touch</a></li>
-        </ul>
-      </div>
+      <div><h4>IRAAC</h4><ul>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="governance.html">Governance &amp; Reporting</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul></div>
+      <div><h4>Our Programs</h4><ul>
+        <li><a href="programs.html#mcc">MCC &mdash; Mob and Country Connections</a></li>
+        <li><a href="programs.html#youthscape">YouthScape</a></li>
+        <li><a href="programs.html#thecrew">The Crew</a></li>
+        <li><a href="programs.html#darc">DARC</a></li>
+      </ul></div>
+      <div><h4>Get Involved</h4><ul>
+        <li><a href="support.html">Support for Aboriginal Community Organisations</a></li>
+        <li><a href="news.html">Latest Updates</a></li>
+        <li><a href="contact.html">Get in Touch</a></li>
+      </ul></div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 IRAAC. All rights reserved.</span>
@@ -578,24 +189,17 @@ document.addEventListener("DOMContentLoaded", function () {
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.querySelector(".main-nav");
   if (toggle && nav) {
-    toggle.addEventListener("click", function () {
-      nav.classList.toggle("open");
-    });
+    toggle.addEventListener("click", function () { nav.classList.toggle("open"); });
   }
-
   var form = document.querySelector(".contact-form");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var note = document.getElementById("form-note");
-      if (note) {
-        note.textContent = "Thanks — this demo form doesn't send yet. Connect it to an email address or form service to go live.";
-        note.style.display = "block";
-      }
+      if (note) { note.textContent = "Thanks \u2014 this demo form doesn't send yet. Connect it to an email address or form service to go live."; note.style.display = "block"; }
     });
   }
 });
-
 </script>
 </body>
 </html>

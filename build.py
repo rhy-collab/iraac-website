@@ -1,6 +1,134 @@
-import os
+# -*- coding: utf-8 -*-
+# Builds the flat, multi-page IRAAC website (7 self-contained HTML files,
+# CSS/JS inlined in each) with hero photography and the "charity, not
+# government" + multi-channel contact content added after the clickable
+# prototype review.
 
-OUT = os.path.dirname(os.path.abspath(__file__))
+IMG = {
+    "hero": "https://picsum.photos/seed/iraac-hero/1800/1000",
+    "about": "https://picsum.photos/seed/iraac-community/1200/900",
+    "mcc": "https://picsum.photos/seed/iraac-mcc/900/650",
+    "youthscape": "https://picsum.photos/seed/iraac-youth/900/650",
+    "thecrew": "https://picsum.photos/seed/iraac-crew/900/650",
+    "darc": "https://picsum.photos/seed/iraac-darc/900/650",
+    "governance": "https://picsum.photos/seed/iraac-meeting/1200/800",
+    "support": "https://picsum.photos/seed/iraac-support/1200/800",
+    "office": "https://picsum.photos/seed/iraac-office/700/500",
+    "news1": "https://picsum.photos/seed/iraac-news1/700/500",
+    "news2": "https://picsum.photos/seed/iraac-news2/700/500",
+}
+
+CSS = """
+:root {
+  --charcoal: #201c1a;
+  --charcoal-soft: #322b26;
+  --cream: #faf6ef;
+  --sand: #f0e6d6;
+  --ochre: #c1631f;
+  --ochre-dark: #8f4416;
+  --text: #2b2724;
+  --muted: #6b625a;
+  --max-width: 1120px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+header.site-header { background: var(--charcoal); color: var(--cream); position: sticky; top: 0; z-index: 50; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: var(--max-width); margin: 0 auto; }
+.wordmark { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.06em; text-decoration: none; color: var(--cream); }
+.wordmark span { color: var(--ochre); }
+nav.main-nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; flex-wrap: wrap; }
+nav.main-nav a { text-decoration: none; color: var(--sand); font-size: 0.92rem; font-weight: 500; border-bottom: 2px solid transparent; padding-bottom: 4px; }
+nav.main-nav a:hover, nav.main-nav a.active { color: var(--ochre); border-bottom-color: var(--ochre); }
+.nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.6rem; cursor: pointer; }
+@media (max-width: 860px) {
+  nav.main-nav { display: none; width: 100%; padding: 0 0 14px; }
+  nav.main-nav.open { display: block; }
+  nav.main-nav ul { flex-direction: column; gap: 12px; }
+  .header-inner { flex-wrap: wrap; }
+  .nav-toggle { display: block; }
+}
+.hero { position: relative; color: var(--cream); padding: 110px 0 90px; background-size: cover; background-position: center; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(20,16,14,0.88) 10%, rgba(32,28,26,0.55) 65%, rgba(32,28,26,0.35) 100%); z-index: -1; }
+.hero .container { max-width: 760px; }
+.eyebrow { color: var(--ochre); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; margin-bottom: 14px; }
+.hero h1 { font-size: 2.7rem; line-height: 1.15; margin: 0 0 20px; }
+.hero p { font-size: 1.15rem; color: var(--sand); max-width: 620px; }
+.page-hero { position: relative; color: var(--cream); padding: 70px 0 60px; background-size: cover; background-position: center; isolation: isolate; }
+.page-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(20,16,14,0.90) 20%, rgba(32,28,26,0.6) 100%); z-index: -1; }
+.page-hero h1 { font-size: 2.2rem; margin: 0 0 12px; }
+.page-hero p { color: var(--sand); max-width: 640px; font-size: 1.05rem; }
+.btn { display: inline-block; padding: 13px 26px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.95rem; margin-right: 14px; margin-top: 10px; }
+.btn-primary { background: var(--ochre); color: var(--cream); }
+.btn-primary:hover { background: var(--ochre-dark); }
+.btn-outline { background: transparent; color: var(--cream); border: 1px solid rgba(250,246,239,0.5); }
+.btn-outline:hover { border-color: var(--ochre); color: var(--ochre); }
+section { padding: 64px 0; }
+section.alt { background: var(--sand); }
+h2.section-title { font-size: 1.9rem; margin: 0 0 14px; }
+p.section-lead { color: var(--muted); max-width: 680px; font-size: 1.05rem; margin-bottom: 40px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+.card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden; }
+.card img { width: 100%; height: 160px; object-fit: cover; }
+.card .card-body { padding: 22px; }
+.card h3 { margin: 0 0 10px; font-size: 1.15rem; color: var(--ochre-dark); }
+.card p { color: var(--muted); font-size: 0.96rem; margin: 0; }
+.card a.card-link { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--ochre); text-decoration: none; font-size: 0.9rem; }
+.two-col { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+.two-col img { border-radius: 10px; width: 100%; height: 340px; object-fit: cover; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } .two-col img { height: 220px; } }
+.program-block { padding: 48px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.program-block:last-child { border-bottom: none; }
+.program-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 6px; }
+.program-hero img { border-radius: 10px; height: 280px; width: 100%; object-fit: cover; }
+@media (max-width: 860px) { .program-hero { grid-template-columns: 1fr; } .program-hero img { height: 200px; } }
+.program-block .tag { display: inline-block; background: var(--sand); color: var(--charcoal); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; margin-bottom: 12px; }
+.program-block h2 { font-size: 1.7rem; color: var(--ochre-dark); margin: 0 0 12px; }
+.note-box { background: var(--sand); border-left: 4px solid var(--ochre); padding: 18px 22px; border-radius: 4px; font-size: 0.95rem; color: var(--charcoal-soft); margin: 24px 0; }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+.contact-card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; padding: 26px; }
+.contact-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+.contact-card h3 { margin: 0 0 8px; font-size: 1.1rem; color: var(--ochre-dark); }
+.contact-card p { color: var(--muted); font-size: 0.93rem; margin: 0 0 14px; }
+form.contact-form { display: grid; gap: 16px; max-width: 560px; }
+form.contact-form label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px; }
+form.contact-form input, form.contact-form select, form.contact-form textarea { width: 100%; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; font-size: 0.95rem; font-family: inherit; }
+.news-item { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid rgba(0,0,0,0.08); align-items: center; }
+.news-item img { border-radius: 8px; height: 130px; width: 100%; object-fit: cover; }
+@media (max-width: 700px) { .news-item { grid-template-columns: 1fr; } .news-item img { height: 160px; } }
+.news-item .date { font-size: 0.8rem; color: var(--ochre); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.news-item h3 { margin: 6px 0 8px; }
+.acknowledgement { background: var(--charcoal-soft); color: var(--sand); font-size: 0.88rem; padding: 16px 0; }
+footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 48px 0 28px; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
+.footer-grid h4 { color: var(--cream); margin: 0 0 12px; font-size: 0.95rem; }
+.footer-grid ul { list-style: none; padding: 0; margin: 0; }
+.footer-grid li { margin-bottom: 8px; }
+.footer-grid a { color: var(--sand); text-decoration: none; font-size: 0.92rem; }
+.footer-grid a:hover { color: var(--ochre); }
+.footer-bottom { border-top: 1px solid rgba(250,246,239,0.12); padding-top: 20px; font-size: 0.82rem; color: rgba(250,246,239,0.6); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+"""
+
+JS = """
+document.addEventListener("DOMContentLoaded", function () {
+  var toggle = document.querySelector(".nav-toggle");
+  var nav = document.querySelector(".main-nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () { nav.classList.toggle("open"); });
+  }
+  var form = document.querySelector(".contact-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var note = document.getElementById("form-note");
+      if (note) { note.textContent = "Thanks \\u2014 this demo form doesn't send yet. Connect it to an email address or form service to go live."; note.style.display = "block"; }
+    });
+  }
+});
+"""
 
 NAV_ITEMS = [
     ("index.html", "Home"),
@@ -21,48 +149,33 @@ def header(active):
   <div class="header-inner">
     <a href="index.html" class="wordmark">IRAAC<span>.</span></a>
     <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
-    <nav class="main-nav">
-      <ul>
-        {links}
-      </ul>
-    </nav>
+    <nav class="main-nav"><ul>{links}</ul></nav>
   </div>
 </header>
 """
 
 FOOTER = """<div class="acknowledgement">
-  <div class="container">
-    IRAAC acknowledges the Traditional Custodians of the lands on which we work, live and gather, and pays respect to Elders past, present and emerging.
-  </div>
+  <div class="container">IRAAC acknowledges the Traditional Custodians of the lands on which we work, live and gather, and pays respect to Elders past, present and emerging.</div>
 </div>
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
-      <div>
-        <h4>IRAAC</h4>
-        <ul>
-          <li><a href="about.html">Our Story</a></li>
-          <li><a href="governance.html">Governance &amp; Reporting</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Our Programs</h4>
-        <ul>
-          <li><a href="programs.html#mcc">MCC &mdash; Mob and Country Connections</a></li>
-          <li><a href="programs.html#youthscape">YouthScape</a></li>
-          <li><a href="programs.html#thecrew">The Crew</a></li>
-          <li><a href="programs.html#darc">DARC</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Get Involved</h4>
-        <ul>
-          <li><a href="support.html">Support for Aboriginal Community Organisations</a></li>
-          <li><a href="news.html">Latest Updates</a></li>
-          <li><a href="contact.html">Get in Touch</a></li>
-        </ul>
-      </div>
+      <div><h4>IRAAC</h4><ul>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="governance.html">Governance &amp; Reporting</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul></div>
+      <div><h4>Our Programs</h4><ul>
+        <li><a href="programs.html#mcc">MCC &mdash; Mob and Country Connections</a></li>
+        <li><a href="programs.html#youthscape">YouthScape</a></li>
+        <li><a href="programs.html#thecrew">The Crew</a></li>
+        <li><a href="programs.html#darc">DARC</a></li>
+      </ul></div>
+      <div><h4>Get Involved</h4><ul>
+        <li><a href="support.html">Support for Aboriginal Community Organisations</a></li>
+        <li><a href="news.html">Latest Updates</a></li>
+        <li><a href="contact.html">Get in Touch</a></li>
+      </ul></div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 IRAAC. All rights reserved.</span>
@@ -80,27 +193,24 @@ def page(title, description, active, body):
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{title} | IRAAC</title>
 <meta name="description" content="{description}" />
-<link rel="stylesheet" href="css/style.css" />
+<style>{CSS}</style>
 </head>
 <body>
 {header(active)}
 {body}
 {FOOTER}
-<script src="js/main.js"></script>
+<script>{JS}</script>
 </body>
 </html>
 """
 
-# ---------------------------------------------------------------------------
-# INDEX
-# ---------------------------------------------------------------------------
-index_body = """
-<section class="hero">
+INDEX = f"""
+<section class="hero" style="background-image:url('{IMG['hero']}');">
   <div class="container">
-    <div class="eyebrow">Local Decision Making &middot; Aboriginal Community Organisation</div>
+    <div class="eyebrow">Aboriginal Community Organisation &middot; Local Decision Making</div>
     <h1>Strong governance. Strong programs. Strong community.</h1>
-    <p>IRAAC supports Aboriginal community, culture and self&#8209;determination through Local Decision Making &mdash; delivering programs, building governance capability, and helping other Aboriginal Community Organisations do the same.</p>
-    <a href="programs.html" class="btn btn-primary">Explore Our Programs</a>
+    <p>IRAAC is a not&#8209;for&#8209;profit Aboriginal Community Organisation &mdash; not a government body &mdash; working with and for community through Local Decision Making. We deliver programs, build governance capability, and help other Aboriginal Community Organisations do the same.</p>
+    <a href="programs.html" class="btn btn-primary">See Our Programs</a>
     <a href="contact.html" class="btn btn-outline">Get in Touch</a>
   </div>
 </section>
@@ -108,65 +218,55 @@ index_body = """
 <section>
   <div class="container">
     <h2 class="section-title">What We Do</h2>
-    <p class="section-lead">IRAAC runs a small group of community programs and is building the governance, reporting and administrative systems that prove strong, accountable leadership to funders, government and community alike.</p>
+    <p class="section-lead">IRAAC runs a small group of community programs and is building the governance and reporting systems that show funders and community alike that IRAAC is well run.</p>
     <div class="grid">
-      <div class="card">
-        <h3>MCC &mdash; Mob and Country Connections</h3>
-        <p>IRAAC supports other Aboriginal Community Organisations to build their own governance, administration and reporting capability, organisation to organisation.</p>
-        <a class="card-link" href="programs.html#mcc">Learn more &rarr;</a>
-      </div>
-      <div class="card">
-        <h3>YouthScape</h3>
-        <p>A program focused on young people in the community &mdash; connecting them with culture, opportunity and support.</p>
-        <a class="card-link" href="programs.html#youthscape">Learn more &rarr;</a>
-      </div>
-      <div class="card">
-        <h3>The Crew</h3>
-        <p>A community-facing program building skills, connection and participation.</p>
-        <a class="card-link" href="programs.html#thecrew">Learn more &rarr;</a>
-      </div>
-      <div class="card">
-        <h3>DARC</h3>
-        <p>Part of IRAAC's program suite, supporting community outcomes alongside MCC, YouthScape and The Crew.</p>
-        <a class="card-link" href="programs.html#darc">Learn more &rarr;</a>
-      </div>
+      <div class="card"><img src="{IMG['mcc']}" alt="" /><div class="card-body"><h3>MCC &mdash; Mob and Country Connections</h3><p>IRAAC supports other Aboriginal Community Organisations to build their own governance and reporting capability.</p><a class="card-link" href="programs.html#mcc">Learn more &rarr;</a></div></div>
+      <div class="card"><img src="{IMG['youthscape']}" alt="" /><div class="card-body"><h3>YouthScape</h3><p>Connecting young people in the community with culture, opportunity and support.</p><a class="card-link" href="programs.html#youthscape">Learn more &rarr;</a></div></div>
+      <div class="card"><img src="{IMG['thecrew']}" alt="" /><div class="card-body"><h3>The Crew</h3><p>A community-facing program building skills, connection and participation.</p><a class="card-link" href="programs.html#thecrew">Learn more &rarr;</a></div></div>
+      <div class="card"><img src="{IMG['darc']}" alt="" /><div class="card-body"><h3>DARC</h3><p>Part of IRAAC's program suite, supporting community outcomes alongside our other programs.</p><a class="card-link" href="programs.html#darc">Learn more &rarr;</a></div></div>
     </div>
   </div>
 </section>
 
 <section class="alt">
-  <div class="container two-col">
-    <div>
-      <h2 class="section-title">Governed Well, Reported Openly</h2>
-      <p>IRAAC is building the systems that let it show &mdash; clearly and consistently &mdash; that it meets the governance, reporting and administration standards expected by Local Decision Making, Aboriginal Affairs NSW, ORIC and other funding bodies.</p>
-      <p>That means a standing Board reporting framework, an annual independent Board evaluation, and a clear external reporting calendar covering quarterly reports, acquittals and audits.</p>
-      <a href="governance.html" class="btn btn-primary" style="margin-top: 6px;">See Our Governance</a>
-    </div>
-    <div class="card">
-      <h3>Why it matters</h3>
-      <p>Stronger Aboriginal Community Organisations produce better reporting, better financial management, better accountability and better Local Decision Making outcomes &mdash; for IRAAC and for the organisations IRAAC supports through MCC.</p>
-    </div>
+  <div class="container">
+    <h2 class="section-title">A Community Organisation, Not a Government Body</h2>
+    <p class="section-lead" style="margin-bottom:0;">IRAAC is a charity and Aboriginal Community Organisation, run by and for community. We work alongside government under the NSW Local Decision Making framework, but IRAAC is independent &mdash; owned and led by community, accountable to our Board and to the people we serve.</p>
   </div>
 </section>
 
 <section>
+  <div class="container two-col">
+    <div>
+      <h2 class="section-title">Governed Well, Reported Openly</h2>
+      <p>IRAAC is building the systems that let it show &mdash; clearly and consistently &mdash; that it meets the governance and reporting standards expected by Local Decision Making, Aboriginal Affairs NSW, ORIC and other funding bodies.</p>
+      <a href="governance.html" class="btn btn-primary">See Our Governance</a>
+    </div>
+    <img src="{IMG['governance']}" alt="" />
+  </div>
+</section>
+
+<section class="alt">
   <div class="container">
-    <h2 class="section-title">Supporting the Wider Sector</h2>
-    <p class="section-lead">Through the MCC Program, IRAAC works alongside other Aboriginal Community Organisations &mdash; at their invitation &mdash; to share the systems, templates and training IRAAC has already built for itself.</p>
-    <a href="support.html" class="btn btn-primary">How We Support Other Organisations</a>
+    <h2 class="section-title">Ways to Reach Us</h2>
+    <p class="section-lead">Whichever way suits you best &mdash; there's no wrong door.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us what you need in a couple of minutes.</p></div>
+      <div class="contact-card"><div class="icon">&#127968;</div><h3>Visit a Local Office</h3><p>Drop in and speak with your local IRAAC officer.</p></div>
+      <div class="contact-card"><div class="icon">&#128100;</div><h3>Request a Home Visit</h3><p>Ask an IRAAC officer to come to you.</p></div>
+      <div class="contact-card"><div class="icon">&#128197;</div><h3>Book a Call</h3><p>Pick a time that works for you.</p></div>
+    </div>
+    <a href="contact.html" class="btn btn-primary" style="margin-top:10px;">Get in Touch</a>
   </div>
 </section>
 """
 
-# ---------------------------------------------------------------------------
-# ABOUT
-# ---------------------------------------------------------------------------
-about_body = """
-<section class="page-hero">
+ABOUT = f"""
+<section class="page-hero" style="background-image:url('{IMG['about']}');">
   <div class="container">
     <div class="eyebrow">About Us</div>
     <h1>Our Story</h1>
-    <p>IRAAC is an Aboriginal Community Organisation operating under the NSW Local Decision Making Framework, working to strengthen community, culture and self&#8209;determination.</p>
+    <p>IRAAC is an Aboriginal Community Organisation and registered charity &mdash; not a government agency &mdash; working under the NSW Local Decision Making Framework.</p>
   </div>
 </section>
 
@@ -174,106 +274,74 @@ about_body = """
   <div class="container two-col">
     <div>
       <h2 class="section-title">Who We Are</h2>
-      <p>IRAAC represents and serves its community through a set of programs and a growing focus on governance and organisational capability. IRAAC operates within the NSW Local Decision Making (LDM) system, working alongside Aboriginal Affairs NSW, Alliances and Assemblies to progress the priorities identified by community.</p>
+      <p>IRAAC represents and serves its community through a set of programs and a growing focus on governance and organisational capability. We are a charity, run by and for community &mdash; independent of government, though we work alongside Aboriginal Affairs NSW, Alliances and Assemblies to progress the priorities community identifies for itself.</p>
       <p>This page is a starting point &mdash; the Secretary and Board should expand it with IRAAC's founding story, the community and Country it represents, and the people who lead it.</p>
-
-      <h2 class="section-title" style="margin-top: 40px;">Local Decision Making, in Brief</h2>
-      <p>Local Decision Making is the NSW framework that gives Aboriginal communities a stronger say in decisions that affect them, delivered through regional Alliances and Assemblies working with Aboriginal Affairs NSW and the broader Accord arrangements. IRAAC's programs and governance work all sit within this framework, and are part of how IRAAC demonstrates it is ready to take on more responsibility within it.</p>
     </div>
-    <div class="card">
-      <h3>Our Board</h3>
-      <p>IRAAC is led by a Board of community members, chaired by the Chairperson and supported by the Secretary. A full list of current Board Members should be added here, along with a short note on how Board Members are elected or appointed.</p>
-      <div class="note-box">Add Board Member names, photos and short bios here once confirmed &mdash; this builds trust with funders and community alike.</div>
-    </div>
+    <img src="{IMG['office']}" alt="" />
   </div>
 </section>
 
 <section class="alt">
   <div class="container">
-    <h2 class="section-title">Where We Sit</h2>
-    <p class="section-lead">IRAAC's programs and governance work connect to the wider Aboriginal Affairs NSW and Local Decision Making system.</p>
+    <h2 class="section-title">Local Decision Making, in Brief</h2>
+    <p class="section-lead">Local Decision Making is the NSW framework that gives Aboriginal communities a stronger say in decisions that affect them, delivered through regional Alliances and Assemblies working with Aboriginal Affairs NSW. IRAAC's programs and governance work all sit within this framework.</p>
     <div class="grid">
-      <div class="card">
-        <h3>Aboriginal Affairs NSW</h3>
-        <p>The NSW Government agency responsible for Aboriginal affairs policy, OCHRE and the Local Decision Making Framework.</p>
-      </div>
-      <div class="card">
-        <h3>Alliances &amp; Assemblies</h3>
-        <p>The regional structures through which community priorities are identified and progressed under Local Decision Making.</p>
-      </div>
-      <div class="card">
-        <h3>ORIC &amp; ACNC</h3>
-        <p>The regulators IRAAC reports to as a registered Aboriginal Community Organisation, covering corporate and charity compliance.</p>
-      </div>
+      <div class="card"><div class="card-body"><h3>Aboriginal Affairs NSW</h3><p>The NSW Government agency responsible for Aboriginal affairs policy and the Local Decision Making Framework &mdash; IRAAC's government partner, not its owner.</p></div></div>
+      <div class="card"><div class="card-body"><h3>Alliances &amp; Assemblies</h3><p>The regional, community-led structures through which priorities are identified under Local Decision Making.</p></div></div>
+      <div class="card"><div class="card-body"><h3>ORIC &amp; ACNC</h3><p>The regulators IRAAC reports to as a registered Aboriginal Community Organisation and charity.</p></div></div>
     </div>
-  </div>
-</section>
-"""
-
-# ---------------------------------------------------------------------------
-# PROGRAMS
-# ---------------------------------------------------------------------------
-programs_body = """
-<section class="page-hero">
-  <div class="container">
-    <div class="eyebrow">What We Deliver</div>
-    <h1>Our Programs</h1>
-    <p>IRAAC runs four programs that support community, culture, young people and organisational capability across the sector.</p>
   </div>
 </section>
 
 <section>
   <div class="container">
-
-    <div class="program-block" id="mcc">
-      <span class="tag">Sector Capability</span>
-      <h2>MCC &mdash; Mob and Country Connections</h2>
-      <p>MCC is IRAAC's program for supporting other Aboriginal Community Organisations to build the governance, administration and reporting capability they need &mdash; sharing the systems, templates and training IRAAC has developed for itself. Support is provided at the invitation of the organisation receiving it, making it a peer&#8209;to&#8209;peer, relationship&#8209;based model rather than a top&#8209;down service.</p>
-      <div class="note-box">Add specific MCC achievements, partner organisations and outcomes here once available.</div>
-    </div>
-
-    <div class="program-block" id="youthscape">
-      <span class="tag">Young People</span>
-      <h2>YouthScape</h2>
-      <p>YouthScape is IRAAC's program for young people in the community, connecting them with culture, opportunity and support. This section should be expanded with YouthScape's specific activities, age groups and outcomes.</p>
-      <div class="note-box">Add YouthScape program details, activities and outcomes here once available.</div>
-    </div>
-
-    <div class="program-block" id="thecrew">
-      <span class="tag">Community</span>
-      <h2>The Crew</h2>
-      <p>The Crew is a community-facing IRAAC program building skills, connection and participation. This section should be expanded with The Crew's specific activities and who it supports.</p>
-      <div class="note-box">Add The Crew program details, activities and outcomes here once available.</div>
-    </div>
-
-    <div class="program-block" id="darc">
-      <span class="tag">Community</span>
-      <h2>DARC</h2>
-      <p>DARC is part of IRAAC's program suite, working alongside MCC, YouthScape and The Crew to support community outcomes. This section should be expanded with DARC's specific focus and activities.</p>
-      <div class="note-box">Add DARC program details, activities and outcomes here once available.</div>
-    </div>
-
-  </div>
-</section>
-
-<section class="alt">
-  <div class="container">
-    <h2 class="section-title">Funded Through</h2>
-    <p class="section-lead">IRAAC's programs are supported through Local Decision Making and Aboriginal Affairs NSW funding arrangements, with governance and capability work built into each program budget.</p>
-    <a href="governance.html" class="btn btn-primary">See How We Report</a>
+    <h2 class="section-title">Our Board</h2>
+    <p class="section-lead">IRAAC is led by a Board of community members, chaired by the Chairperson and supported by the Secretary.</p>
+    <div class="note-box">Add Board Member names, photos and short bios here once confirmed &mdash; this builds trust with funders and community alike.</div>
   </div>
 </section>
 """
 
-# ---------------------------------------------------------------------------
-# GOVERNANCE
-# ---------------------------------------------------------------------------
-governance_body = """
-<section class="page-hero">
+def program_detail(key, tag, title, img, body):
+    return f"""
+<div class="program-block" id="{key}">
+  <div class="program-hero">
+    <img src="{img}" alt="" />
+    <div><span class="tag">{tag}</span><h2>{title}</h2><p>{body}</p></div>
+  </div>
+  <div class="note-box">Add real photos, outcomes and stories for {title} here once available.</div>
+</div>
+"""
+
+PROGRAMS = f"""
+<section class="page-hero" style="background-image:url('{IMG['mcc']}');">
+  <div class="container">
+    <div class="eyebrow">What We Deliver</div>
+    <h1>Our Programs</h1>
+    <p>Four programs, each supporting community in a different way.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    {program_detail("mcc", "Sector Capability", "MCC &mdash; Mob and Country Connections", IMG['mcc'],
+        "MCC is IRAAC's program for supporting other Aboriginal Community Organisations to build the governance, administration and reporting capability they need &mdash; sharing the systems, templates and training IRAAC has developed for itself. Support is provided at the invitation of the organisation receiving it, making it a peer&#8209;to&#8209;peer, relationship&#8209;based model rather than a top&#8209;down service.")}
+    {program_detail("youthscape", "Young People", "YouthScape", IMG['youthscape'],
+        "YouthScape is IRAAC's program for young people in the community, connecting them with culture, opportunity and support. This section should be expanded with YouthScape's specific activities, age groups and outcomes.")}
+    {program_detail("thecrew", "Community", "The Crew", IMG['thecrew'],
+        "The Crew is a community-facing IRAAC program building skills, connection and participation. This section should be expanded with The Crew's specific activities and who it supports.")}
+    {program_detail("darc", "Community", "DARC", IMG['darc'],
+        "DARC is part of IRAAC's program suite, working alongside MCC, YouthScape and The Crew to support community outcomes. This section should be expanded with DARC's specific focus and activities.")}
+  </div>
+</section>
+"""
+
+GOVERNANCE = f"""
+<section class="page-hero" style="background-image:url('{IMG['governance']}');">
   <div class="container">
     <div class="eyebrow">Accountability &amp; Transparency</div>
     <h1>Governance &amp; Reporting</h1>
-    <p>IRAAC is building consistent, evidence-based governance and reporting systems &mdash; so funders, regulators and community can see, clearly, that IRAAC is well run.</p>
+    <p>IRAAC is a charity, independently governed by its Board &mdash; here's how we run ourselves and report to funders and regulators.</p>
   </div>
 </section>
 
@@ -281,21 +349,16 @@ governance_body = """
   <div class="container two-col">
     <div>
       <h2 class="section-title">How IRAAC is Governed</h2>
-      <p>IRAAC is governed by a Board, chaired by the Chairperson and supported by the Secretary, meeting regularly using a standard agenda, minutes, decisions and actions framework. This consistency makes it easier for the Board to track decisions and easier for IRAAC to prove &mdash; to Aboriginal Affairs NSW, ORIC, ACNC and other funders &mdash; that governance is being taken seriously.</p>
+      <p>IRAAC is governed by a Board, chaired by the Chairperson and supported by the Secretary, meeting regularly using a standard agenda, minutes, decisions and actions framework.</p>
       <p>An annual independent Board evaluation process checks and improves IRAAC's governance every year, and Board Members, staff and community members all receive governance training relevant to their role.</p>
     </div>
-    <div class="card">
+    <div class="card"><div class="card-body">
       <h3>What We Report On</h3>
-      <ul style="padding-left: 18px; color: var(--muted);">
-        <li>Quarterly progress reports</li>
-        <li>Annual reports</li>
-        <li>Program acquittals</li>
-        <li>Audit reports</li>
-        <li>ORIC reports</li>
-        <li>ACNC reports</li>
-        <li>Funding body reports</li>
+      <ul style="padding-left: 18px; color: var(--muted); margin:0;">
+        <li>Quarterly progress reports</li><li>Annual reports</li><li>Program acquittals</li>
+        <li>Audit reports</li><li>ORIC &amp; ACNC reports</li><li>Funding body reports</li>
       </ul>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -304,33 +367,21 @@ governance_body = """
     <h2 class="section-title">Reports &amp; Policies</h2>
     <p class="section-lead">Publicly appropriate reports and key policies will be listed here as they're confirmed for release.</p>
     <div class="grid">
-      <div class="card">
-        <h3>Annual Report</h3>
-        <p>Add a link to IRAAC's most recent annual report once available.</p>
-      </div>
-      <div class="card">
-        <h3>Board Charter</h3>
-        <p>Add a link to IRAAC's Board Charter or governance policy once confirmed for public release.</p>
-      </div>
-      <div class="card">
-        <h3>Strategic Plan</h3>
-        <p>Add a link to IRAAC's current strategic plan once available.</p>
-      </div>
+      <div class="card"><div class="card-body"><h3>Annual Report</h3><p>Add a link once available.</p></div></div>
+      <div class="card"><div class="card-body"><h3>Board Charter</h3><p>Add a link once confirmed for public release.</p></div></div>
+      <div class="card"><div class="card-body"><h3>Strategic Plan</h3><p>Add a link once available.</p></div></div>
     </div>
     <div class="note-box">These documents should only be published once the Secretary and Board have confirmed they're appropriate for public release.</div>
   </div>
 </section>
 """
 
-# ---------------------------------------------------------------------------
-# SUPPORT
-# ---------------------------------------------------------------------------
-support_body = """
-<section class="page-hero">
+SUPPORT = f"""
+<section class="page-hero" style="background-image:url('{IMG['support']}');">
   <div class="container">
     <div class="eyebrow">MCC Program</div>
     <h1>Supporting Other Aboriginal Community Organisations</h1>
-    <p>IRAAC shares the systems, templates and training it has built for its own governance, administration and reporting &mdash; helping other Aboriginal Community Organisations build the same capability.</p>
+    <p>IRAAC shares the systems, templates and training it has built for its own governance, administration and reporting.</p>
   </div>
 </section>
 
@@ -339,36 +390,29 @@ support_body = """
     <div>
       <h2 class="section-title">How It Works</h2>
       <p>Support is offered at your organisation's invitation &mdash; IRAAC doesn't impose a model, it shares one, and works alongside your organisation until it can manage its own administration, governance and reporting with confidence.</p>
-      <p>This can include a digital office setup, board reporting templates, governance training, external reporting frameworks, financial and operational procedures, and practical on&#8209;the&#8209;job support &mdash; delivered remotely or on site, for as long as it's useful.</p>
     </div>
-    <div class="card">
+    <div class="card"><div class="card-body">
       <h3>What's on Offer</h3>
-      <ul style="padding-left: 18px; color: var(--muted);">
-        <li>Digital office set up and training</li>
-        <li>Board reporting templates</li>
-        <li>Governance training and evaluation</li>
-        <li>External reporting frameworks</li>
-        <li>Financial and operational procedures</li>
+      <ul style="padding-left: 18px; color: var(--muted); margin:0;">
+        <li>Digital office set up and training</li><li>Board reporting templates</li>
+        <li>Governance training and evaluation</li><li>External reporting frameworks</li>
         <li>On&#8209;the&#8209;job capability support</li>
       </ul>
-    </div>
+    </div></div>
   </div>
 </section>
 
 <section class="alt">
   <div class="container">
     <h2 class="section-title">Reach Out</h2>
-    <p class="section-lead">If your organisation is interested in MCC support, get in touch and IRAAC will follow up to talk through what's needed.</p>
+    <p class="section-lead">If your organisation is interested in MCC support, get in touch and IRAAC will follow up.</p>
     <a href="contact.html" class="btn btn-primary">Contact IRAAC</a>
   </div>
 </section>
 """
 
-# ---------------------------------------------------------------------------
-# NEWS
-# ---------------------------------------------------------------------------
-news_body = """
-<section class="page-hero">
+NEWS = f"""
+<section class="page-hero" style="background-image:url('{IMG['news1']}');">
   <div class="container">
     <div class="eyebrow">Updates</div>
     <h1>News &amp; Updates</h1>
@@ -378,88 +422,66 @@ news_body = """
 
 <section>
   <div class="container" style="max-width: 780px;">
-
-    <div class="news-item">
-      <div class="date">Placeholder</div>
-      <h3>Website launched</h3>
-      <p>This is a placeholder update &mdash; replace it with IRAAC's first real news post. Updates don't need to be long; a few sentences written the way IRAAC would update its Board is enough.</p>
-    </div>
-
-    <div class="news-item">
-      <div class="date">Placeholder</div>
-      <h3>Add your next update here</h3>
-      <p>Use this space for programme milestones, funding news, events or governance updates as they happen.</p>
-    </div>
-
+    <div class="news-item"><img src="{IMG['news1']}" alt="" /><div><div class="date">Placeholder</div><h3>Website launched</h3><p>This is a placeholder update &mdash; replace it with IRAAC's first real news post.</p></div></div>
+    <div class="news-item"><img src="{IMG['news2']}" alt="" /><div><div class="date">Placeholder</div><h3>Add your next update here</h3><p>Use this space for programme milestones, funding news, events or governance updates.</p></div></div>
   </div>
 </section>
 """
 
-# ---------------------------------------------------------------------------
-# CONTACT
-# ---------------------------------------------------------------------------
-contact_body = """
-<section class="page-hero">
+CONTACT = f"""
+<section class="page-hero" style="background-image:url('{IMG['office']}');">
   <div class="container">
     <div class="eyebrow">Get in Touch</div>
     <h1>Contact IRAAC</h1>
-    <p>Reach out for general enquiries, program questions, media requests, or MCC partnership enquiries from other Aboriginal Community Organisations.</p>
+    <p>There's no wrong door &mdash; reach us however suits you best.</p>
   </div>
 </section>
 
 <section>
-  <div class="container two-col">
-    <div>
-      <h2 class="section-title">Who to Contact</h2>
-      <ul class="contact-list">
-        <li><span class="role">General Enquiries</span>Add general contact email / phone here.</li>
-        <li><span class="role">Program Enquiries</span>Add program contact details here.</li>
-        <li><span class="role">MCC &amp; Partnership Enquiries</span>Add MCC contact details here for other Aboriginal Community Organisations.</li>
-        <li><span class="role">Media</span>Add media contact details here.</li>
-      </ul>
+  <div class="container">
+    <div class="contact-grid" style="margin-bottom: 48px;">
+      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us a bit about what you need and we'll follow up.</p><a class="btn btn-primary" style="margin:0;" href="#">Start Survey</a></div>
+      <div class="contact-card"><div class="icon">&#127968;</div><h3>Visit a Local Office</h3><p>Drop in and speak with your local IRAAC officer in person.</p><a class="btn btn-primary" style="margin:0;" href="#">Find an Office</a></div>
+      <div class="contact-card"><div class="icon">&#128100;</div><h3>Request a Home Visit</h3><p>Ask an IRAAC officer to come to you, at a time that works.</p><a class="btn btn-primary" style="margin:0;" href="#">Request a Visit</a></div>
+      <div class="contact-card"><div class="icon">&#128197;</div><h3>Book a Call</h3><p>Pick a time that suits you &mdash; we'll call you.</p><a class="btn btn-primary" style="margin:0;" href="#">Book a Time</a></div>
     </div>
-    <div class="card">
-      <h3>Send a Message</h3>
-      <form class="contact-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div>
-          <label for="reason">Reason for contact</label>
-          <select id="reason" name="reason">
-            <option>General enquiry</option>
-            <option>Program enquiry</option>
-            <option>MCC / partnership enquiry</option>
-            <option>Media</option>
-          </select>
-        </div>
-        <div>
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 4px;">Send Message</button>
-        <p id="form-note" style="display:none; color: var(--muted); font-size: 0.88rem;"></p>
-      </form>
+
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">Who to Contact</h2>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,0.08);"><b style="color:var(--ochre-dark);display:block;">General Enquiries</b>Add general contact email / phone here.</li>
+          <li style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,0.08);"><b style="color:var(--ochre-dark);display:block;">Program Enquiries</b>Add program contact details here.</li>
+          <li style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,0.08);"><b style="color:var(--ochre-dark);display:block;">MCC &amp; Partnership Enquiries</b>Add MCC contact details for other Aboriginal Community Organisations.</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-body">
+        <h3>Send a Message</h3>
+        <form class="contact-form">
+          <div><label for="name">Name</label><input type="text" id="name" required /></div>
+          <div><label for="email">Email</label><input type="email" id="email" required /></div>
+          <div><label for="message">Message</label><textarea id="message" rows="4" required></textarea></div>
+          <button type="submit" class="btn btn-primary" style="margin-top:4px;">Send Message</button>
+          <p id="form-note" style="display:none; color: var(--muted); font-size: 0.88rem;"></p>
+        </form>
+      </div></div>
     </div>
   </div>
 </section>
 """
 
 pages = [
-    ("index.html", "Home", "IRAAC supports Aboriginal community, culture and self-determination through Local Decision Making.", "index.html", index_body),
-    ("about.html", "Our Story", "Who IRAAC is and how it fits within the NSW Local Decision Making Framework.", "about.html", about_body),
-    ("programs.html", "Our Programs", "MCC, YouthScape, The Crew and DARC — IRAAC's community programs.", "programs.html", programs_body),
-    ("governance.html", "Governance & Reporting", "How IRAAC is governed and how it reports to funders and regulators.", "governance.html", governance_body),
-    ("support.html", "Supporting Other Organisations", "How IRAAC supports other Aboriginal Community Organisations through MCC.", "support.html", support_body),
-    ("news.html", "News", "Latest updates from IRAAC.", "news.html", news_body),
-    ("contact.html", "Contact", "Get in touch with IRAAC.", "contact.html", contact_body),
+    ("index.html", "Home", "IRAAC supports Aboriginal community, culture and self-determination through Local Decision Making.", "index.html", INDEX),
+    ("about.html", "Our Story", "Who IRAAC is and how it fits within the NSW Local Decision Making Framework.", "about.html", ABOUT),
+    ("programs.html", "Our Programs", "MCC, YouthScape, The Crew and DARC — IRAAC's community programs.", "programs.html", PROGRAMS),
+    ("governance.html", "Governance & Reporting", "How IRAAC is governed and how it reports to funders and regulators.", "governance.html", GOVERNANCE),
+    ("support.html", "Supporting Other Organisations", "How IRAAC supports other Aboriginal Community Organisations through MCC.", "support.html", SUPPORT),
+    ("news.html", "News", "Latest updates from IRAAC.", "news.html", NEWS),
+    ("contact.html", "Contact", "Get in touch with IRAAC.", "contact.html", CONTACT),
 ]
 
+import os
+OUT = os.path.dirname(os.path.abspath(__file__))
 for filename, title, desc, active, body in pages:
     with open(os.path.join(OUT, filename), "w") as f:
         f.write(page(title, desc, active, body))
