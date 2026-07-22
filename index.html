@@ -80,6 +80,9 @@ nav.main-nav a.active { color: var(--ochre-bright); border-bottom-color: var(--o
 .hero-flex h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 4.6vw, 3.1rem); line-height: 1.12; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 20px; }
 .hero-flex h1 em { font-style: normal; color: var(--ochre-bright); }
 .hero-flex p { font-size: 1.12rem; color: var(--sand); max-width: 560px; }
+.trust-row { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgba(250,246,239,0.16); }
+.trust-row span { position: relative; color: var(--sand); font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; padding-left: 18px; }
+.trust-row span::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, var(--ochre-bright), var(--green)); }
 
 /* Buttons */
 .btn { display: inline-block; padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 0.95rem; margin-right: 14px; margin-top: 12px; transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
@@ -90,6 +93,7 @@ nav.main-nav a.active { color: var(--ochre-bright); border-bottom-color: var(--o
 
 /* Sections */
 section { padding: 84px 0; }
+@media (max-width: 640px) { section { padding: 56px 0; } .hero-flex .container { padding-top: 56px; padding-bottom: 56px; } .btn { display: block; text-align: center; margin-right: 0; } }
 section.alt { background: var(--sand-soft); }
 .kicker { color: var(--ochre); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.76rem; font-weight: 700; margin: 0 0 10px; }
 h2.section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.3rem); font-weight: 600; line-height: 1.2; margin: 0 0 16px; letter-spacing: -0.01em; }
@@ -97,8 +101,10 @@ p.section-lead { color: var(--muted); max-width: 700px; font-size: 1.07rem; marg
 
 /* Cards grid */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); gap: 22px; }
-.card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card { position: relative; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--ochre) 0%, var(--ochre-bright) 50%, var(--green) 100%); opacity: 0; transition: opacity 0.2s ease; z-index: 1; }
 .card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(32,28,26,0.12); }
+.card:hover::before { opacity: 1; }
 .card img { width: 100%; height: 160px; object-fit: cover; }
 .card .card-body { padding: 24px 22px; display: flex; flex-direction: column; flex-grow: 1; }
 .card h3 { font-family: var(--font-display); margin: 0 0 10px; font-size: 1.15rem; font-weight: 600; color: var(--charcoal); }
@@ -156,6 +162,27 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
   </div>
 </header>
 
+<section class="hero-flex">
+  <div class="container">
+    <div>
+      <div class="eyebrow">Aboriginal Community Organisation &middot; Local Decision Making</div>
+      <h1>Strong governance. Strong programs. <em>Strong community.</em></h1>
+      <p>IRAAC is a community organisation working with and for community through Local Decision Making. We deliver programs, build governance capability, and help other Aboriginal Community Organisations do the same.</p>
+      <a href="book-a-call.html" class="btn btn-primary">&#128197; Book a Free 15-Min Call</a>
+      <a href="programs.html" class="btn btn-outline">See Our Programs</a>
+      <div class="trust-row">
+        <span>Community-controlled</span>
+        <span>Local Decision Making</span>
+        <span>Openly reported governance</span>
+      </div>
+    </div>
+    <div class="art-panel">
+      <img src="https://picsum.photos/seed/iraac-art-placeholder/900/900" alt="" />
+      <div class="art-caption">Placeholder artwork &mdash; to be replaced with a commissioned piece from an Aboriginal artist. See note to Rhys below.</div>
+    </div>
+  </div>
+</section>
+
 <section class="frontdoor">
   <div class="container">
     <div class="frontdoor-head">
@@ -183,23 +210,6 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
         <h3>Complete a Survey</h3>
         <p>Tell us a bit about what you need &mdash; takes about two minutes.</p>
       </a>
-    </div>
-  </div>
-</section>
-
-
-<section class="hero-flex">
-  <div class="container">
-    <div>
-      <div class="eyebrow">Aboriginal Community Organisation &middot; Local Decision Making</div>
-      <h1>Strong governance. Strong programs. <em>Strong community.</em></h1>
-      <p>IRAAC is a community organisation working with and for community through Local Decision Making. We deliver programs, build governance capability, and help other Aboriginal Community Organisations do the same.</p>
-      <a href="book-a-call.html" class="btn btn-primary">&#128197; Book a Free 15-Min Call</a>
-      <a href="programs.html" class="btn btn-outline">See Our Programs</a>
-    </div>
-    <div class="art-panel">
-      <img src="https://picsum.photos/seed/iraac-art-placeholder/900/900" alt="" />
-      <div class="art-caption">Placeholder artwork &mdash; to be replaced with a commissioned piece from an Aboriginal artist. See note to Rhys below.</div>
     </div>
   </div>
 </section>
