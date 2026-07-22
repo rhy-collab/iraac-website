@@ -151,6 +151,16 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 .office-item h4 { margin: 0 0 4px; color: var(--ochre-dark); }
 .office-item p { margin: 0; color: var(--muted); font-size: 0.9rem; }
 
+/* Insights blog */
+.insight-post { padding: 40px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.insight-post:last-child { border-bottom: none; }
+.insight-post .insight-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.insight-post .insight-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; background: var(--sand); color: var(--charcoal); padding: 4px 10px; border-radius: 3px; }
+.insight-post .insight-date { font-size: 0.85rem; color: var(--muted); }
+.insight-post h2 { font-size: 1.55rem; color: var(--ochre-dark); margin: 0 0 14px; }
+.insight-post p { color: var(--charcoal-soft); max-width: 720px; }
+.insight-post p + p { margin-top: 12px; }
+
 /* Sector / system explainer */
 .system-block { padding: 40px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
 .system-block:last-child { border-bottom: none; }
@@ -199,6 +209,7 @@ NAV_ITEMS = [
     ("governance.html", "Governance & Reporting"),
     ("support.html", "Supporting Other Organisations"),
     ("news.html", "News"),
+    ("insights.html", "Insights"),
     ("contact.html", "Contact"),
 ]
 
@@ -247,6 +258,7 @@ FOOTER = """<div class="acknowledgement">
       <div><h4>Get Involved</h4><ul>
         <li><a href="support.html">Support for Aboriginal Community Organisations</a></li>
         <li><a href="news.html">Latest Updates</a></li>
+        <li><a href="insights.html">Insights</a></li>
         <li><a href="contact.html">Get in Touch</a></li>
       </ul></div>
     </div>
@@ -546,6 +558,46 @@ NEWS = f"""
 </section>
 """
 
+INSIGHTS = f"""
+<section class="page-hero" style="background-image:url('{IMG['governance']}');">
+  <div class="container">
+    <div class="eyebrow">From IRAAC</div>
+    <h1>Insights</h1>
+    <p>Short, plain-language reflections on governance, community programs and what we're learning as we go &mdash; written for community, funders and partners alike.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width: 780px;">
+
+    <div class="insight-post">
+      <div class="insight-meta"><span class="insight-tag">Governance</span><span class="insight-date">July 2026</span></div>
+      <h2>Why Governance Is the Foundation of Strong Community Programs</h2>
+      <p>It's easy to think of governance as paperwork &mdash; the meetings, the minutes, the reports that sit behind the programs people actually see and feel the benefit of. But good governance is what makes those programs possible in the first place. A Board that meets regularly, keeps clear records of its decisions, and reports honestly on what's working and what isn't is a Board that funders, partners and community can trust with more responsibility over time.</p>
+      <p>For IRAAC, that means treating governance as an everyday discipline rather than something to scramble for when a report is due. A standard agenda and minutes framework, an annual independent Board evaluation, and role-specific training for Board Members and staff all sound unglamorous &mdash; but they're exactly what lets us say, with confidence, that IRAAC is well run. That confidence is what frees us up to focus on the programs themselves: MCC, YouthScape, The Crew and DARC.</p>
+      <p>Under Local Decision Making, this matters even more. The more clearly an organisation like IRAAC can demonstrate strong governance, the stronger the case for more decisions being made locally rather than centrally. Good governance isn't the opposite of community control &mdash; it's what community control is built on.</p>
+    </div>
+
+    <div class="insight-post">
+      <div class="insight-meta"><span class="insight-tag">MCC</span><span class="insight-date">June 2026</span></div>
+      <h2>What We're Learning Through MCC's Peer-to-Peer Model</h2>
+      <p>MCC &mdash; Mob and Country Connections &mdash; started from a simple observation: IRAAC had spent real time and effort building governance, administration and reporting systems for itself, and other Aboriginal Community Organisations were often working through the exact same challenges from scratch. Rather than keep that work inside IRAAC, MCC shares it &mdash; the templates, the training, the lessons learned &mdash; with organisations that ask for it.</p>
+      <p>The model only works because support is offered at the invitation of the organisation receiving it. Nobody likes being told how to run their organisation by an outsider, and Aboriginal Community Organisations have particular reason to be wary of top-down models imposed from elsewhere. MCC is peer-to-peer by design: IRAAC has walked the path already, and shares what it learned rather than prescribing a fixed solution.</p>
+      <p>It's early days, and MCC is as much a live experiment as it is a finished program &mdash; a chance for IRAAC to test whether Aboriginal-led, relationship-based capability sharing genuinely moves the needle for other organisations, and to keep refining the approach based on what those organisations tell us actually helps.</p>
+    </div>
+
+    <div class="insight-post">
+      <div class="insight-meta"><span class="insight-tag">Local Decision Making</span><span class="insight-date">May 2026</span></div>
+      <h2>Local Decision Making: Turning Policy Into Practice</h2>
+      <p>Local Decision Making sounds straightforward on paper: give Aboriginal communities a stronger say in the decisions that affect them. In practice, it depends entirely on the structures underneath it actually working &mdash; the regional Alliances that identify priorities, the community Assemblies that keep those priorities grounded in what people have actually said, and organisations like IRAAC that turn those priorities into programs on the ground.</p>
+      <p>For IRAAC, that means staying closely connected to its regional Alliance and Assembly rather than assuming it already knows what community needs. It also means being transparent about where IRAAC sits in the wider system &mdash; working alongside Aboriginal Affairs NSW as a government partner, not being run by it, and reporting to ORIC and the ACNC as any responsible charity and corporation should.</p>
+      <p>The test of whether Local Decision Making is working isn't the policy documents &mdash; it's whether the programs communities actually receive reflect what those communities said they wanted. That's the standard IRAAC is trying to hold itself to, and it's one we'll keep coming back to in future updates.</p>
+    </div>
+
+  </div>
+</section>
+"""
+
 CONTACT = f"""
 <section class="page-hero" style="background-image:url('{IMG['office']}');">
   <div class="container">
@@ -716,6 +768,7 @@ pages = [
     ("governance.html", "Governance & Reporting", "How IRAAC is governed and how it reports to funders and regulators.", "governance.html", GOVERNANCE),
     ("support.html", "Supporting Other Organisations", "How IRAAC supports other Aboriginal Community Organisations through MCC.", "support.html", SUPPORT),
     ("news.html", "News", "Latest updates from IRAAC.", "news.html", NEWS),
+    ("insights.html", "Insights", "Reflections on governance, community programs and Local Decision Making from IRAAC.", "insights.html", INSIGHTS),
     ("contact.html", "Contact", "Get in touch with IRAAC.", "contact.html", CONTACT),
     ("survey.html", "Complete a Survey", "A short survey to help IRAAC connect you with the right support.", "contact.html", SURVEY),
     ("offices.html", "Visit a Local Office", "Find an IRAAC office to visit in person.", "contact.html", OFFICES),
