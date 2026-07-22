@@ -6,6 +6,7 @@
 
 IMG = {
     "hero": "https://picsum.photos/seed/iraac-hero/1800/1000",
+    "art": "https://picsum.photos/seed/iraac-art-placeholder/900/900",
     "about": "https://picsum.photos/seed/iraac-community/1200/900",
     "mcc": "https://picsum.photos/seed/iraac-mcc/900/650",
     "youthscape": "https://picsum.photos/seed/iraac-youth/900/650",
@@ -110,6 +111,49 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 .footer-grid a { color: var(--sand); text-decoration: none; font-size: 0.92rem; }
 .footer-grid a:hover { color: var(--ochre); }
 .footer-bottom { border-top: 1px solid rgba(250,246,239,0.12); padding-top: 20px; font-size: 0.82rem; color: rgba(250,246,239,0.6); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+/* Quick actions bar — the primary conversion bar, sticky right under the header */
+.quickbar { background: var(--sand); border-bottom: 1px solid rgba(0,0,0,0.08); position: sticky; top: 61px; z-index: 40; }
+.quickbar-inner { max-width: var(--max-width); margin: 0 auto; padding: 12px 24px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.quickbar-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-right: 4px; }
+.qbtn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px; font-size: 0.88rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: var(--text); }
+.qbtn:hover { border-color: var(--ochre); color: var(--ochre-dark); }
+.qbtn.qbtn-primary { background: var(--ochre); color: #fff; border-color: var(--ochre); }
+.qbtn.qbtn-primary:hover { background: var(--ochre-dark); border-color: var(--ochre-dark); }
+@media (max-width: 700px) { .quickbar-inner { padding: 10px 16px; } .quickbar-label { display: none; } }
+
+/* Hero with artwork panel */
+.hero-flex { position: relative; background: linear-gradient(120deg, var(--charcoal) 0%, var(--charcoal-soft) 100%); color: var(--cream); isolation: isolate; }
+.hero-flex .container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; padding-top: 70px; padding-bottom: 70px; max-width: var(--max-width); }
+.hero-flex .art-panel { border-radius: 14px; overflow: hidden; position: relative; height: 340px; }
+.hero-flex .art-panel img { width: 100%; height: 100%; object-fit: cover; }
+.hero-flex .art-panel .art-caption { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(20,16,14,0.72); color: var(--sand); font-size: 0.72rem; padding: 8px 12px; }
+@media (max-width: 900px) { .hero-flex .container { grid-template-columns: 1fr; } .hero-flex .art-panel { height: 220px; } }
+.hero-flex h1 { font-size: 2.5rem; line-height: 1.15; margin: 0 0 18px; }
+.hero-flex p { font-size: 1.1rem; color: var(--sand); max-width: 560px; }
+
+/* Survey */
+.survey-shell { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 36px; max-width: 640px; }
+.survey-step-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ochre); font-weight: 700; margin-bottom: 8px; }
+.q-block { margin-bottom: 28px; }
+.q-block > label.q-title { display: block; font-weight: 700; margin-bottom: 10px; font-size: 1rem; }
+.q-help { font-size: 0.85rem; color: var(--muted); margin: -6px 0 10px; }
+.option-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.option-pill { border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; cursor: pointer; background: #fff; }
+.option-pill input { margin-right: 8px; }
+.option-pill:has(input:checked) { border-color: var(--ochre); background: var(--sand); }
+.consent-box { background: var(--sand); border-radius: 8px; padding: 16px 18px; font-size: 0.85rem; color: var(--charcoal-soft); margin-top: 6px; }
+
+/* Office locator */
+.map-embed { width: 100%; height: 420px; border: 0; border-radius: 12px; }
+.office-list { display: grid; gap: 14px; margin-top: 24px; }
+.office-item { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.office-item h4 { margin: 0 0 4px; color: var(--ochre-dark); }
+.office-item p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+/* Book a call */
+.call-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 36px; max-width: 560px; }
+.call-card .duration { display:inline-block; background: var(--sand); color: var(--charcoal); font-weight:700; font-size:0.8rem; padding:5px 12px; border-radius:999px; margin-bottom:16px; }
 """
 
 JS = """
@@ -125,6 +169,15 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       var note = document.getElementById("form-note");
       if (note) { note.textContent = "Thanks \\u2014 this demo form doesn't send yet. Connect it to an email address or form service to go live."; note.style.display = "block"; }
+    });
+  }
+  var survey = document.getElementById("iraac-survey");
+  if (survey) {
+    survey.addEventListener("submit", function (e) {
+      e.preventDefault();
+      survey.style.display = "none";
+      var thanks = document.getElementById("survey-thanks");
+      if (thanks) { thanks.style.display = "block"; thanks.scrollIntoView({behavior: "smooth", block: "start"}); }
     });
   }
 });
@@ -152,6 +205,17 @@ def header(active):
     <nav class="main-nav"><ul>{links}</ul></nav>
   </div>
 </header>
+"""
+
+QUICKBAR = """<div class="quickbar">
+  <div class="quickbar-inner">
+    <span class="quickbar-label">Need support?</span>
+    <a class="qbtn qbtn-primary" href="book-a-call.html">&#128197; Book a Free 15-Min Call</a>
+    <a class="qbtn" href="offices.html">&#127968; Visit a Local Office</a>
+    <a class="qbtn" href="contact.html#home-visit">&#128100; Request a Home Visit</a>
+    <a class="qbtn" href="survey.html">&#128203; Complete a Survey</a>
+  </div>
+</div>
 """
 
 FOOTER = """<div class="acknowledgement">
@@ -197,6 +261,7 @@ def page(title, description, active, body):
 </head>
 <body>
 {header(active)}
+{QUICKBAR}
 {body}
 {FOOTER}
 <script>{JS}</script>
@@ -205,13 +270,19 @@ def page(title, description, active, body):
 """
 
 INDEX = f"""
-<section class="hero" style="background-image:url('{IMG['hero']}');">
+<section class="hero-flex">
   <div class="container">
-    <div class="eyebrow">Aboriginal Community Organisation &middot; Local Decision Making</div>
-    <h1>Strong governance. Strong programs. Strong community.</h1>
-    <p>IRAAC is a not&#8209;for&#8209;profit Aboriginal Community Organisation &mdash; not a government body &mdash; working with and for community through Local Decision Making. We deliver programs, build governance capability, and help other Aboriginal Community Organisations do the same.</p>
-    <a href="programs.html" class="btn btn-primary">See Our Programs</a>
-    <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+    <div>
+      <div class="eyebrow">Aboriginal Community Organisation &middot; Local Decision Making</div>
+      <h1>Strong governance. Strong programs. Strong community.</h1>
+      <p>IRAAC is a community organisation working with and for community through Local Decision Making. We deliver programs, build governance capability, and help other Aboriginal Community Organisations do the same.</p>
+      <a href="book-a-call.html" class="btn btn-primary">&#128197; Book a Free 15-Min Call</a>
+      <a href="programs.html" class="btn btn-outline">See Our Programs</a>
+    </div>
+    <div class="art-panel">
+      <img src="{IMG['art']}" alt="" />
+      <div class="art-caption">Placeholder artwork &mdash; to be replaced with a commissioned piece from an Aboriginal artist. See note to Rhys below.</div>
+    </div>
   </div>
 </section>
 
@@ -229,13 +300,6 @@ INDEX = f"""
 </section>
 
 <section class="alt">
-  <div class="container">
-    <h2 class="section-title">A Community Organisation, Not a Government Body</h2>
-    <p class="section-lead" style="margin-bottom:0;">IRAAC is a charity and Aboriginal Community Organisation, run by and for community. We work alongside government under the NSW Local Decision Making framework, but IRAAC is independent &mdash; owned and led by community, accountable to our Board and to the people we serve.</p>
-  </div>
-</section>
-
-<section>
   <div class="container two-col">
     <div>
       <h2 class="section-title">Governed Well, Reported Openly</h2>
@@ -245,20 +309,6 @@ INDEX = f"""
     <img src="{IMG['governance']}" alt="" />
   </div>
 </section>
-
-<section class="alt">
-  <div class="container">
-    <h2 class="section-title">Ways to Reach Us</h2>
-    <p class="section-lead">Whichever way suits you best &mdash; there's no wrong door.</p>
-    <div class="contact-grid">
-      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us what you need in a couple of minutes.</p></div>
-      <div class="contact-card"><div class="icon">&#127968;</div><h3>Visit a Local Office</h3><p>Drop in and speak with your local IRAAC officer.</p></div>
-      <div class="contact-card"><div class="icon">&#128100;</div><h3>Request a Home Visit</h3><p>Ask an IRAAC officer to come to you.</p></div>
-      <div class="contact-card"><div class="icon">&#128197;</div><h3>Book a Call</h3><p>Pick a time that works for you.</p></div>
-    </div>
-    <a href="contact.html" class="btn btn-primary" style="margin-top:10px;">Get in Touch</a>
-  </div>
-</section>
 """
 
 ABOUT = f"""
@@ -266,7 +316,7 @@ ABOUT = f"""
   <div class="container">
     <div class="eyebrow">About Us</div>
     <h1>Our Story</h1>
-    <p>IRAAC is an Aboriginal Community Organisation and registered charity &mdash; not a government agency &mdash; working under the NSW Local Decision Making Framework.</p>
+    <p>IRAAC is an Aboriginal Community Organisation and registered charity, working under the NSW Local Decision Making Framework.</p>
   </div>
 </section>
 
@@ -440,10 +490,10 @@ CONTACT = f"""
 <section>
   <div class="container">
     <div class="contact-grid" style="margin-bottom: 48px;">
-      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us a bit about what you need and we'll follow up.</p><a class="btn btn-primary" style="margin:0;" href="#">Start Survey</a></div>
-      <div class="contact-card"><div class="icon">&#127968;</div><h3>Visit a Local Office</h3><p>Drop in and speak with your local IRAAC officer in person.</p><a class="btn btn-primary" style="margin:0;" href="#">Find an Office</a></div>
-      <div class="contact-card"><div class="icon">&#128100;</div><h3>Request a Home Visit</h3><p>Ask an IRAAC officer to come to you, at a time that works.</p><a class="btn btn-primary" style="margin:0;" href="#">Request a Visit</a></div>
-      <div class="contact-card"><div class="icon">&#128197;</div><h3>Book a Call</h3><p>Pick a time that suits you &mdash; we'll call you.</p><a class="btn btn-primary" style="margin:0;" href="#">Book a Time</a></div>
+      <div class="contact-card"><div class="icon">&#128203;</div><h3>Complete a Survey</h3><p>Tell us a bit about what you need and we'll follow up.</p><a class="btn btn-primary" style="margin:0;" href="survey.html">Start Survey</a></div>
+      <div class="contact-card"><div class="icon">&#127968;</div><h3>Visit a Local Office</h3><p>Drop in and speak with your local IRAAC officer in person.</p><a class="btn btn-primary" style="margin:0;" href="offices.html">Find an Office</a></div>
+      <div class="contact-card" id="home-visit"><div class="icon">&#128100;</div><h3>Request a Home Visit</h3><p>Ask an IRAAC officer to come to you, at a time that works.</p><a class="btn btn-primary" style="margin:0;" href="#home-visit-form">Request a Visit</a></div>
+      <div class="contact-card"><div class="icon">&#128197;</div><h3>Book a Call</h3><p>Pick a time that suits you &mdash; we'll call you.</p><a class="btn btn-primary" style="margin:0;" href="book-a-call.html">Book a Time</a></div>
     </div>
 
     <div class="two-col">
@@ -455,16 +505,137 @@ CONTACT = f"""
           <li style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,0.08);"><b style="color:var(--ochre-dark);display:block;">MCC &amp; Partnership Enquiries</b>Add MCC contact details for other Aboriginal Community Organisations.</li>
         </ul>
       </div>
-      <div class="card"><div class="card-body">
-        <h3>Send a Message</h3>
+      <div class="card" id="home-visit-form"><div class="card-body">
+        <h3>Send a Message / Request a Home Visit</h3>
         <form class="contact-form">
           <div><label for="name">Name</label><input type="text" id="name" required /></div>
           <div><label for="email">Email</label><input type="email" id="email" required /></div>
-          <div><label for="message">Message</label><textarea id="message" rows="4" required></textarea></div>
+          <div><label for="message">Message</label><textarea id="message" rows="4" required placeholder="Let us know if you'd like an IRAAC officer to visit you at home, and a good time to reach you."></textarea></div>
           <button type="submit" class="btn btn-primary" style="margin-top:4px;">Send Message</button>
           <p id="form-note" style="display:none; color: var(--muted); font-size: 0.88rem;"></p>
         </form>
       </div></div>
+    </div>
+  </div>
+</section>
+"""
+
+SURVEY = f"""
+<section class="page-hero" style="background-image:url('{IMG['support']}');">
+  <div class="container">
+    <div class="eyebrow">Tell Us About You</div>
+    <h1>Complete a Survey</h1>
+    <p>This short survey helps IRAAC understand who's reaching out and connect you with the right support. It takes about two minutes.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div id="survey-form-wrap">
+    <form class="survey-shell" id="iraac-survey">
+      <div class="survey-step-label">Step 1 of 1 &middot; About You</div>
+
+      <div class="q-block">
+        <label class="q-title">What age group are you in?</label>
+        <div class="option-row">
+          <label class="option-pill"><input type="radio" name="age" value="under18" /> Under 18</label>
+          <label class="option-pill"><input type="radio" name="age" value="18-24" /> 18&ndash;24</label>
+          <label class="option-pill"><input type="radio" name="age" value="25-44" /> 25&ndash;44</label>
+          <label class="option-pill"><input type="radio" name="age" value="45-64" /> 45&ndash;64</label>
+          <label class="option-pill"><input type="radio" name="age" value="65plus" /> 65+</label>
+          <label class="option-pill"><input type="radio" name="age" value="prefer-not" /> Prefer not to say</label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-title">Do you identify as Aboriginal and/or Torres Strait Islander?</label>
+        <p class="q-help">This helps IRAAC understand who it's reaching. It's always your choice whether to answer.</p>
+        <div class="option-row">
+          <label class="option-pill"><input type="radio" name="identity" value="aboriginal" /> Aboriginal</label>
+          <label class="option-pill"><input type="radio" name="identity" value="torres-strait" /> Torres Strait Islander</label>
+          <label class="option-pill"><input type="radio" name="identity" value="both" /> Both Aboriginal and Torres Strait Islander</label>
+          <label class="option-pill"><input type="radio" name="identity" value="neither" /> Neither</label>
+          <label class="option-pill"><input type="radio" name="identity" value="prefer-not" /> Prefer not to say</label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-title" for="ethnicity">Ethnicity or cultural background (optional)</label>
+        <p class="q-help">Only answer if you're comfortable &mdash; this is entirely optional.</p>
+        <input type="text" id="ethnicity" name="ethnicity" placeholder="e.g. a specific community, nation or cultural background" style="width:100%;padding:12px 14px;border:1px solid rgba(0,0,0,0.15);border-radius:4px;font-size:0.95rem;font-family:inherit;" />
+      </div>
+
+      <div class="q-block">
+        <label class="q-title" for="religion">Religion or spiritual belief (optional)</label>
+        <p class="q-help">Only answer if you're comfortable &mdash; this is entirely optional.</p>
+        <input type="text" id="religion" name="religion" style="width:100%;padding:12px 14px;border:1px solid rgba(0,0,0,0.15);border-radius:4px;font-size:0.95rem;font-family:inherit;" />
+      </div>
+
+      <div class="q-block">
+        <label class="q-title">What would you like help with?</label>
+        <div class="option-row">
+          <label class="option-pill"><input type="checkbox" name="need" value="programs" /> Our programs (MCC, YouthScape, The Crew, DARC)</label>
+          <label class="option-pill"><input type="checkbox" name="need" value="governance" /> Governance / MCC support for my organisation</label>
+          <label class="option-pill"><input type="checkbox" name="need" value="general" /> General information</label>
+          <label class="option-pill"><input type="checkbox" name="need" value="other" /> Something else</label>
+        </div>
+      </div>
+
+      <div class="consent-box">
+        This is a demonstration survey. Your answers are not being stored or sent anywhere yet. Once IRAAC is ready to launch it, this note will be replaced with a proper privacy statement explaining exactly how your information is collected, stored and used, in line with the Privacy Act and community expectations around sensitive information such as Indigenous status, ethnicity and religion.
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="margin-top:20px;">Submit Survey</button>
+    </form>
+    <div id="survey-thanks" class="survey-shell" style="display:none;">
+      <h2 class="section-title" style="margin-top:0;">Thank you</h2>
+      <p>Thanks for completing the survey. In the live version, an IRAAC officer would follow up based on what you told us. In the meantime, you're welcome to <a href="book-a-call.html" style="color:var(--ochre);font-weight:600;">book a free 15&#8209;minute call</a> or <a href="offices.html" style="color:var(--ochre);font-weight:600;">visit a local office</a>.</p>
+    </div>
+    </div>
+  </div>
+</section>
+"""
+
+OFFICES = f"""
+<section class="page-hero" style="background-image:url('{IMG['office']}');">
+  <div class="container">
+    <div class="eyebrow">In Person</div>
+    <h1>Visit a Local Office</h1>
+    <p>Drop in and speak with an IRAAC officer face to face. Locations below are placeholders &mdash; real office addresses need to be added by the Secretary.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <iframe class="map-embed" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=140.9%2C-37.6%2C153.6%2C-28.1&amp;layer=mapnik&amp;marker=-33.8,151.2" title="Map of placeholder IRAAC office locations across NSW"></iframe>
+    <div class="note-box" style="margin-top:18px;">This map and the office list below use placeholder locations so the page can be reviewed. Please confirm IRAAC's real office addresses (and whether IRAAC's remit is NSW-wide or a specific region) so they can be added &mdash; and so the map can be centred correctly.</div>
+
+    <div class="office-list">
+      <div class="office-item"><div><h4>Placeholder Office &mdash; Sydney / Metro</h4><p>Address to be confirmed &middot; Open weekdays</p></div><a class="btn btn-outline" style="margin:0;color:var(--ochre-dark);border-color:var(--ochre-dark);" href="book-a-call.html">Book Ahead</a></div>
+      <div class="office-item"><div><h4>Placeholder Office &mdash; Regional NSW</h4><p>Address to be confirmed &middot; Open weekdays</p></div><a class="btn btn-outline" style="margin:0;color:var(--ochre-dark);border-color:var(--ochre-dark);" href="book-a-call.html">Book Ahead</a></div>
+      <div class="office-item"><div><h4>Placeholder Office &mdash; Additional Location</h4><p>Address to be confirmed &middot; Open weekdays</p></div><a class="btn btn-outline" style="margin:0;color:var(--ochre-dark);border-color:var(--ochre-dark);" href="book-a-call.html">Book Ahead</a></div>
+    </div>
+  </div>
+</section>
+"""
+
+BOOKCALL = f"""
+<section class="page-hero" style="background-image:url('{IMG['governance']}');">
+  <div class="container">
+    <div class="eyebrow">Free &middot; 15 Minutes &middot; No Obligation</div>
+    <h1>Book a Free 15-Minute Call</h1>
+    <p>Speak with an experienced IRAAC officer about anything &mdash; a program, a governance question, or just to find out more. Open to community members, other organisations and government contacts alike.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="call-card">
+      <span class="duration">&#9200; 15 minutes &middot; Free</span>
+      <h2 class="section-title" style="margin-top:0;">Pick a Time</h2>
+      <p style="color:var(--muted);">This call will be booked through Calendly once IRAAC provides a scheduling link. For now, this is a placeholder so the flow can be reviewed end to end.</p>
+      <div class="note-box">Calendly embed goes here &mdash; please share the IRAAC officer's Calendly link (or set one up) and it will be embedded directly on this page so visitors can pick a time without leaving the site.</div>
+      <a href="contact.html" class="btn btn-primary">Request a Call Instead</a>
     </div>
   </div>
 </section>
@@ -478,6 +649,9 @@ pages = [
     ("support.html", "Supporting Other Organisations", "How IRAAC supports other Aboriginal Community Organisations through MCC.", "support.html", SUPPORT),
     ("news.html", "News", "Latest updates from IRAAC.", "news.html", NEWS),
     ("contact.html", "Contact", "Get in touch with IRAAC.", "contact.html", CONTACT),
+    ("survey.html", "Complete a Survey", "A short survey to help IRAAC connect you with the right support.", "contact.html", SURVEY),
+    ("offices.html", "Visit a Local Office", "Find an IRAAC office to visit in person.", "contact.html", OFFICES),
+    ("book-a-call.html", "Book a Free 15-Minute Call", "Book a free 15-minute call with an experienced IRAAC officer.", "contact.html", BOOKCALL),
 ]
 
 import os

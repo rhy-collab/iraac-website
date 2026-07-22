@@ -97,6 +97,49 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 .footer-grid a { color: var(--sand); text-decoration: none; font-size: 0.92rem; }
 .footer-grid a:hover { color: var(--ochre); }
 .footer-bottom { border-top: 1px solid rgba(250,246,239,0.12); padding-top: 20px; font-size: 0.82rem; color: rgba(250,246,239,0.6); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+/* Quick actions bar — the primary conversion bar, sticky right under the header */
+.quickbar { background: var(--sand); border-bottom: 1px solid rgba(0,0,0,0.08); position: sticky; top: 61px; z-index: 40; }
+.quickbar-inner { max-width: var(--max-width); margin: 0 auto; padding: 12px 24px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.quickbar-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-right: 4px; }
+.qbtn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px; font-size: 0.88rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: var(--text); }
+.qbtn:hover { border-color: var(--ochre); color: var(--ochre-dark); }
+.qbtn.qbtn-primary { background: var(--ochre); color: #fff; border-color: var(--ochre); }
+.qbtn.qbtn-primary:hover { background: var(--ochre-dark); border-color: var(--ochre-dark); }
+@media (max-width: 700px) { .quickbar-inner { padding: 10px 16px; } .quickbar-label { display: none; } }
+
+/* Hero with artwork panel */
+.hero-flex { position: relative; background: linear-gradient(120deg, var(--charcoal) 0%, var(--charcoal-soft) 100%); color: var(--cream); isolation: isolate; }
+.hero-flex .container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; padding-top: 70px; padding-bottom: 70px; max-width: var(--max-width); }
+.hero-flex .art-panel { border-radius: 14px; overflow: hidden; position: relative; height: 340px; }
+.hero-flex .art-panel img { width: 100%; height: 100%; object-fit: cover; }
+.hero-flex .art-panel .art-caption { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(20,16,14,0.72); color: var(--sand); font-size: 0.72rem; padding: 8px 12px; }
+@media (max-width: 900px) { .hero-flex .container { grid-template-columns: 1fr; } .hero-flex .art-panel { height: 220px; } }
+.hero-flex h1 { font-size: 2.5rem; line-height: 1.15; margin: 0 0 18px; }
+.hero-flex p { font-size: 1.1rem; color: var(--sand); max-width: 560px; }
+
+/* Survey */
+.survey-shell { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 36px; max-width: 640px; }
+.survey-step-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ochre); font-weight: 700; margin-bottom: 8px; }
+.q-block { margin-bottom: 28px; }
+.q-block > label.q-title { display: block; font-weight: 700; margin-bottom: 10px; font-size: 1rem; }
+.q-help { font-size: 0.85rem; color: var(--muted); margin: -6px 0 10px; }
+.option-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.option-pill { border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; cursor: pointer; background: #fff; }
+.option-pill input { margin-right: 8px; }
+.option-pill:has(input:checked) { border-color: var(--ochre); background: var(--sand); }
+.consent-box { background: var(--sand); border-radius: 8px; padding: 16px 18px; font-size: 0.85rem; color: var(--charcoal-soft); margin-top: 6px; }
+
+/* Office locator */
+.map-embed { width: 100%; height: 420px; border: 0; border-radius: 12px; }
+.office-list { display: grid; gap: 14px; margin-top: 24px; }
+.office-item { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.office-item h4 { margin: 0 0 4px; color: var(--ochre-dark); }
+.office-item p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+/* Book a call */
+.call-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 36px; max-width: 560px; }
+.call-card .duration { display:inline-block; background: var(--sand); color: var(--charcoal); font-weight:700; font-size:0.8rem; padding:5px 12px; border-radius:999px; margin-bottom:16px; }
 </style>
 </head>
 <body>
@@ -115,12 +158,22 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
   </div>
 </header>
 
+<div class="quickbar">
+  <div class="quickbar-inner">
+    <span class="quickbar-label">Need support?</span>
+    <a class="qbtn qbtn-primary" href="book-a-call.html">&#128197; Book a Free 15-Min Call</a>
+    <a class="qbtn" href="offices.html">&#127968; Visit a Local Office</a>
+    <a class="qbtn" href="contact.html#home-visit">&#128100; Request a Home Visit</a>
+    <a class="qbtn" href="survey.html">&#128203; Complete a Survey</a>
+  </div>
+</div>
+
 
 <section class="page-hero" style="background-image:url('https://picsum.photos/seed/iraac-community/1200/900');">
   <div class="container">
     <div class="eyebrow">About Us</div>
     <h1>Our Story</h1>
-    <p>IRAAC is an Aboriginal Community Organisation and registered charity &mdash; not a government agency &mdash; working under the NSW Local Decision Making Framework.</p>
+    <p>IRAAC is an Aboriginal Community Organisation and registered charity, working under the NSW Local Decision Making Framework.</p>
   </div>
 </section>
 
@@ -198,6 +251,15 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       var note = document.getElementById("form-note");
       if (note) { note.textContent = "Thanks \u2014 this demo form doesn't send yet. Connect it to an email address or form service to go live."; note.style.display = "block"; }
+    });
+  }
+  var survey = document.getElementById("iraac-survey");
+  if (survey) {
+    survey.addEventListener("submit", function (e) {
+      e.preventDefault();
+      survey.style.display = "none";
+      var thanks = document.getElementById("survey-thanks");
+      if (thanks) { thanks.style.display = "block"; thanks.scrollIntoView({behavior: "smooth", block: "start"}); }
     });
   }
 });

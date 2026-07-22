@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Our Programs | IRAAC</title>
-<meta name="description" content="MCC, YouthScape, The Crew and DARC — IRAAC's community programs." />
+<title>Complete a Survey | IRAAC</title>
+<meta name="description" content="A short survey to help IRAAC connect you with the right support." />
 <style>
 :root {
   --charcoal: #201c1a;
@@ -149,11 +149,11 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
     <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
     <nav class="main-nav"><ul><li><a href="index.html">Home</a></li>
 <li><a href="about.html">Our Story</a></li>
-<li><a href="programs.html" class="active">Our Programs</a></li>
+<li><a href="programs.html">Our Programs</a></li>
 <li><a href="governance.html">Governance & Reporting</a></li>
 <li><a href="support.html">Supporting Other Organisations</a></li>
 <li><a href="news.html">News</a></li>
-<li><a href="contact.html">Contact</a></li>
+<li><a href="contact.html" class="active">Contact</a></li>
 </ul></nav>
   </div>
 </header>
@@ -169,52 +169,77 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 </div>
 
 
-<section class="page-hero" style="background-image:url('https://picsum.photos/seed/iraac-mcc/900/650');">
+<section class="page-hero" style="background-image:url('https://picsum.photos/seed/iraac-support/1200/800');">
   <div class="container">
-    <div class="eyebrow">What We Deliver</div>
-    <h1>Our Programs</h1>
-    <p>Four programs, each supporting community in a different way.</p>
+    <div class="eyebrow">Tell Us About You</div>
+    <h1>Complete a Survey</h1>
+    <p>This short survey helps IRAAC understand who's reaching out and connect you with the right support. It takes about two minutes.</p>
   </div>
 </section>
 
 <section>
   <div class="container">
-    
-<div class="program-block" id="mcc">
-  <div class="program-hero">
-    <img src="https://picsum.photos/seed/iraac-mcc/900/650" alt="" />
-    <div><span class="tag">Sector Capability</span><h2>MCC &mdash; Mob and Country Connections</h2><p>MCC is IRAAC's program for supporting other Aboriginal Community Organisations to build the governance, administration and reporting capability they need &mdash; sharing the systems, templates and training IRAAC has developed for itself. Support is provided at the invitation of the organisation receiving it, making it a peer&#8209;to&#8209;peer, relationship&#8209;based model rather than a top&#8209;down service.</p></div>
-  </div>
-  <div class="note-box">Add real photos, outcomes and stories for MCC &mdash; Mob and Country Connections here once available.</div>
-</div>
+    <div id="survey-form-wrap">
+    <form class="survey-shell" id="iraac-survey">
+      <div class="survey-step-label">Step 1 of 1 &middot; About You</div>
 
-    
-<div class="program-block" id="youthscape">
-  <div class="program-hero">
-    <img src="https://picsum.photos/seed/iraac-youth/900/650" alt="" />
-    <div><span class="tag">Young People</span><h2>YouthScape</h2><p>YouthScape is IRAAC's program for young people in the community, connecting them with culture, opportunity and support. This section should be expanded with YouthScape's specific activities, age groups and outcomes.</p></div>
-  </div>
-  <div class="note-box">Add real photos, outcomes and stories for YouthScape here once available.</div>
-</div>
+      <div class="q-block">
+        <label class="q-title">What age group are you in?</label>
+        <div class="option-row">
+          <label class="option-pill"><input type="radio" name="age" value="under18" /> Under 18</label>
+          <label class="option-pill"><input type="radio" name="age" value="18-24" /> 18&ndash;24</label>
+          <label class="option-pill"><input type="radio" name="age" value="25-44" /> 25&ndash;44</label>
+          <label class="option-pill"><input type="radio" name="age" value="45-64" /> 45&ndash;64</label>
+          <label class="option-pill"><input type="radio" name="age" value="65plus" /> 65+</label>
+          <label class="option-pill"><input type="radio" name="age" value="prefer-not" /> Prefer not to say</label>
+        </div>
+      </div>
 
-    
-<div class="program-block" id="thecrew">
-  <div class="program-hero">
-    <img src="https://picsum.photos/seed/iraac-crew/900/650" alt="" />
-    <div><span class="tag">Community</span><h2>The Crew</h2><p>The Crew is a community-facing IRAAC program building skills, connection and participation. This section should be expanded with The Crew's specific activities and who it supports.</p></div>
-  </div>
-  <div class="note-box">Add real photos, outcomes and stories for The Crew here once available.</div>
-</div>
+      <div class="q-block">
+        <label class="q-title">Do you identify as Aboriginal and/or Torres Strait Islander?</label>
+        <p class="q-help">This helps IRAAC understand who it's reaching. It's always your choice whether to answer.</p>
+        <div class="option-row">
+          <label class="option-pill"><input type="radio" name="identity" value="aboriginal" /> Aboriginal</label>
+          <label class="option-pill"><input type="radio" name="identity" value="torres-strait" /> Torres Strait Islander</label>
+          <label class="option-pill"><input type="radio" name="identity" value="both" /> Both Aboriginal and Torres Strait Islander</label>
+          <label class="option-pill"><input type="radio" name="identity" value="neither" /> Neither</label>
+          <label class="option-pill"><input type="radio" name="identity" value="prefer-not" /> Prefer not to say</label>
+        </div>
+      </div>
 
-    
-<div class="program-block" id="darc">
-  <div class="program-hero">
-    <img src="https://picsum.photos/seed/iraac-darc/900/650" alt="" />
-    <div><span class="tag">Community</span><h2>DARC</h2><p>DARC is part of IRAAC's program suite, working alongside MCC, YouthScape and The Crew to support community outcomes. This section should be expanded with DARC's specific focus and activities.</p></div>
-  </div>
-  <div class="note-box">Add real photos, outcomes and stories for DARC here once available.</div>
-</div>
+      <div class="q-block">
+        <label class="q-title" for="ethnicity">Ethnicity or cultural background (optional)</label>
+        <p class="q-help">Only answer if you're comfortable &mdash; this is entirely optional.</p>
+        <input type="text" id="ethnicity" name="ethnicity" placeholder="e.g. a specific community, nation or cultural background" style="width:100%;padding:12px 14px;border:1px solid rgba(0,0,0,0.15);border-radius:4px;font-size:0.95rem;font-family:inherit;" />
+      </div>
 
+      <div class="q-block">
+        <label class="q-title" for="religion">Religion or spiritual belief (optional)</label>
+        <p class="q-help">Only answer if you're comfortable &mdash; this is entirely optional.</p>
+        <input type="text" id="religion" name="religion" style="width:100%;padding:12px 14px;border:1px solid rgba(0,0,0,0.15);border-radius:4px;font-size:0.95rem;font-family:inherit;" />
+      </div>
+
+      <div class="q-block">
+        <label class="q-title">What would you like help with?</label>
+        <div class="option-row">
+          <label class="option-pill"><input type="checkbox" name="need" value="programs" /> Our programs (MCC, YouthScape, The Crew, DARC)</label>
+          <label class="option-pill"><input type="checkbox" name="need" value="governance" /> Governance / MCC support for my organisation</label>
+          <label class="option-pill"><input type="checkbox" name="need" value="general" /> General information</label>
+          <label class="option-pill"><input type="checkbox" name="need" value="other" /> Something else</label>
+        </div>
+      </div>
+
+      <div class="consent-box">
+        This is a demonstration survey. Your answers are not being stored or sent anywhere yet. Once IRAAC is ready to launch it, this note will be replaced with a proper privacy statement explaining exactly how your information is collected, stored and used, in line with the Privacy Act and community expectations around sensitive information such as Indigenous status, ethnicity and religion.
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="margin-top:20px;">Submit Survey</button>
+    </form>
+    <div id="survey-thanks" class="survey-shell" style="display:none;">
+      <h2 class="section-title" style="margin-top:0;">Thank you</h2>
+      <p>Thanks for completing the survey. In the live version, an IRAAC officer would follow up based on what you told us. In the meantime, you're welcome to <a href="book-a-call.html" style="color:var(--ochre);font-weight:600;">book a free 15&#8209;minute call</a> or <a href="offices.html" style="color:var(--ochre);font-weight:600;">visit a local office</a>.</p>
+    </div>
+    </div>
   </div>
 </section>
 
