@@ -4,15 +4,17 @@ A working draft of a public website for IRAAC, covering the organisation, its pr
 
 This is a plain static site (HTML/CSS/JS, no build step) so it's easy to edit and deploys directly on Vercel with zero configuration.
 
+Each page (`index.html`, `about.html`, etc.) is fully self-contained — styles and scripts are inlined in a `<style>`/`<script>` block at the top of each file, so there's nothing to upload but the seven `.html` files. This was done deliberately to make the site a single flat folder that's simple to drag-and-drop into GitHub or Vercel.
+
 ## Editing
 
-Each page is a standalone HTML file generated from `build.py`. To make sitewide changes (e.g. nav links, footer), edit `build.py` and run:
+`build.py` is the source of truth used to generate all seven pages from shared templates (nav, footer, styling). To make sitewide changes, edit `build.py` and re-run:
 
 ```
 python3 build.py
 ```
 
-To change styling, edit `css/style.css` directly.
+Editing an individual `.html` file directly also works fine for small tweaks — just note that shared elements (nav, footer, styling) are duplicated across all seven files, so a sitewide change made by hand needs to be repeated in each file.
 
 ## Still to do
 
