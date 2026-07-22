@@ -98,15 +98,21 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 .footer-grid a:hover { color: var(--ochre); }
 .footer-bottom { border-top: 1px solid rgba(250,246,239,0.12); padding-top: 20px; font-size: 0.82rem; color: rgba(250,246,239,0.6); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
-/* Quick actions bar — the primary conversion bar, sticky right under the header */
-.quickbar { background: var(--sand); border-bottom: 1px solid rgba(0,0,0,0.08); position: sticky; top: 61px; z-index: 40; }
-.quickbar-inner { max-width: var(--max-width); margin: 0 auto; padding: 12px 24px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.quickbar-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-right: 4px; }
-.qbtn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px; font-size: 0.88rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: var(--text); }
-.qbtn:hover { border-color: var(--ochre); color: var(--ochre-dark); }
-.qbtn.qbtn-primary { background: var(--ochre); color: #fff; border-color: var(--ochre); }
-.qbtn.qbtn-primary:hover { background: var(--ochre-dark); border-color: var(--ochre-dark); }
-@media (max-width: 700px) { .quickbar-inner { padding: 10px 16px; } .quickbar-label { display: none; } }
+/* Front door — the very first thing visible on every page: four ways to reach IRAAC */
+.frontdoor { background: var(--charcoal); border-bottom: 3px solid var(--ochre); padding: 30px 0; }
+.frontdoor-head { margin-bottom: 20px; }
+.frontdoor-head h2 { color: var(--cream); font-size: 1.4rem; margin: 0 0 6px; }
+.frontdoor-head p { color: var(--sand); margin: 0; font-size: 0.98rem; }
+.frontdoor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.fd-card { display: block; background: var(--charcoal-soft); border: 1px solid rgba(250,246,239,0.14); border-radius: 10px; padding: 20px 18px; text-decoration: none; transition: border-color .15s, transform .15s; }
+.fd-card:hover { border-color: var(--ochre); transform: translateY(-2px); }
+.fd-card.is-primary { background: var(--ochre); border-color: var(--ochre); }
+.fd-card .fd-icon { font-size: 1.6rem; display: block; margin-bottom: 10px; }
+.fd-card h3 { color: var(--cream); font-size: 1.02rem; margin: 0 0 6px; }
+.fd-card p { color: var(--sand); font-size: 0.85rem; margin: 0; line-height: 1.4; }
+.fd-card.is-primary p { color: rgba(250,246,239,0.92); }
+@media (max-width: 900px) { .frontdoor-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .frontdoor-grid { grid-template-columns: 1fr; } .frontdoor { padding: 24px 0; } }
 
 /* Hero with artwork panel */
 .hero-flex { position: relative; background: linear-gradient(120deg, var(--charcoal) 0%, var(--charcoal-soft) 100%); color: var(--cream); isolation: isolate; }
@@ -178,15 +184,36 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
   </div>
 </header>
 
-<div class="quickbar">
-  <div class="quickbar-inner">
-    <span class="quickbar-label">Need support?</span>
-    <a class="qbtn qbtn-primary" href="book-a-call.html">&#128197; Book a Free 15-Min Call</a>
-    <a class="qbtn" href="offices.html">&#127968; Visit a Local Office</a>
-    <a class="qbtn" href="contact.html#home-visit">&#128100; Request a Home Visit</a>
-    <a class="qbtn" href="survey.html">&#128203; Complete a Survey</a>
+<section class="frontdoor">
+  <div class="container">
+    <div class="frontdoor-head">
+      <h2>Get in Touch &mdash; Choose What Works for You</h2>
+      <p>Whatever brings you here, IRAAC is here to help. Pick one of the four options below to get started right now.</p>
+    </div>
+    <div class="frontdoor-grid">
+      <a class="fd-card is-primary" href="book-a-call.html">
+        <span class="fd-icon">&#128197;</span>
+        <h3>Book a Free 15-Min Call</h3>
+        <p>Speak with an experienced IRAAC officer &mdash; free, no obligation, over the phone.</p>
+      </a>
+      <a class="fd-card" href="offices.html">
+        <span class="fd-icon">&#127968;</span>
+        <h3>Visit a Local Office</h3>
+        <p>Drop in and speak with someone from IRAAC face to face.</p>
+      </a>
+      <a class="fd-card" href="contact.html#home-visit">
+        <span class="fd-icon">&#128100;</span>
+        <h3>Request a Home Visit</h3>
+        <p>Ask an IRAAC officer to come to you, at a time that works.</p>
+      </a>
+      <a class="fd-card" href="survey.html">
+        <span class="fd-icon">&#128203;</span>
+        <h3>Complete a Survey</h3>
+        <p>Tell us a bit about what you need &mdash; takes about two minutes.</p>
+      </a>
+    </div>
   </div>
-</div>
+</section>
 
 
 <section class="page-hero" style="background-image:url('https://picsum.photos/seed/iraac-support/1200/800');">
