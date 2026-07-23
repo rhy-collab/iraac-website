@@ -152,6 +152,28 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 .insight-post h2 { font-size: 1.55rem; color: var(--ochre-dark); margin: 0 0 14px; }
 .insight-post p { color: var(--charcoal-soft); max-width: 720px; }
 .insight-post p + p { margin-top: 12px; }
+.insight-post.is-featured { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-top: 5px solid var(--ochre); border-radius: 12px; padding: 34px; margin: 8px 0 48px; box-shadow: 0 12px 32px rgba(32,28,26,0.06); }
+.insight-post.is-featured h2 { font-size: 2rem; line-height: 1.2; }
+.survey-report-intro { font-size: 1.08rem; }
+.survey-report-callout { background: var(--sand); border-left: 4px solid var(--ochre); border-radius: 4px; padding: 18px 20px; margin: 24px 0 30px; }
+.survey-report-callout p { margin: 0; }
+.survey-report-section { margin-top: 32px; }
+.survey-report-section h3 { color: var(--ochre-dark); font-size: 1.25rem; margin: 0 0 10px; }
+.survey-report-section ul { margin: 12px 0 0; padding-left: 22px; color: var(--charcoal-soft); }
+.survey-report-section li + li { margin-top: 9px; }
+.survey-report-audiences { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.survey-report-audience { background: var(--cream); border: 1px solid rgba(0,0,0,0.07); border-radius: 8px; padding: 20px; }
+.survey-report-audience h4 { color: var(--ochre-dark); font-size: 1rem; margin: 0 0 8px; }
+.survey-report-audience p { font-size: 0.94rem; margin: 0; }
+.survey-report-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.survey-report-actions .btn { margin: 0; }
+.survey-report-actions .btn-outline { color: var(--ochre-dark); border-color: var(--ochre-dark); }
+@media (max-width: 640px) {
+  .insight-post.is-featured { padding: 26px 20px; }
+  .insight-post.is-featured h2 { font-size: 1.65rem; }
+  .survey-report-audiences { grid-template-columns: 1fr; }
+  .survey-report-actions .btn { width: 100%; text-align: center; }
+}
 
 /* Sector / system explainer */
 .system-block { padding: 40px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
@@ -244,6 +266,86 @@ footer.site-footer { background: var(--charcoal); color: var(--sand); padding: 4
 
 <section>
   <div class="container" style="max-width: 780px;">
+
+    <article class="insight-post is-featured" id="july-2026-survey-report">
+      <div class="insight-meta"><span class="insight-tag">Monthly Survey Report</span><span class="insight-date">July 2026</span></div>
+      <h2>IRAAC Survey Monthly Report</h2>
+      <p class="survey-report-intro">This month, community members used IRAAC's survey to ask about culture, young people, family and community support, programs, practical help and the best way to speak with someone. These questions are important because they show that people are not only looking for information. They are looking for a clear, respectful way to connect with a person who can listen, explain what is available and help work out the next step.</p>
+      <p>This report brings those questions together for Aboriginal community members, government organisations and the workers who meet people every day. It does not identify anyone or repeat personal circumstances. Its purpose is to share the themes that were raised and turn them into practical guidance for stronger, more culturally responsive service.</p>
+
+      <div class="survey-report-callout">
+        <p><strong>The central message:</strong> people want more than a list of services. They want welcoming, face-to-face and flexible pathways into support, with culture, family and community understood as part of the whole picture.</p>
+      </div>
+
+      <div class="survey-report-section">
+        <h3>The sorts of questions community members asked</h3>
+        <ul>
+          <li>Where can I sit down and speak with someone face to face?</li>
+          <li>Can an IRAAC worker visit my home or community if getting to an office is difficult?</li>
+          <li>What support is available for families and for people dealing with several needs at once?</li>
+          <li>How can young people take part in activities, stay connected to culture and feel supported?</li>
+          <li>What programs, events and community activities are available, and how do people join?</li>
+          <li>Can practical barriers, including transport and access, be considered when support is arranged?</li>
+          <li>Who will contact me, what happens next, and how will I know my question has reached the right person?</li>
+        </ul>
+      </div>
+
+      <div class="survey-report-section">
+        <h3>What the questions tell us</h3>
+        <p><strong>Connection comes before service navigation.</strong> People may know what is happening in their life without knowing the name of the program or government area that fits. A good first response should therefore begin with listening, not asking people to diagnose the system for themselves.</p>
+        <p><strong>Face-to-face contact still matters.</strong> Interest in local offices, home or community visits and direct follow-up shows the value of human contact. Digital forms can open the door, but they should lead to a real conversation rather than become another place where a person has to repeat their story.</p>
+        <p><strong>Culture, young people and family are connected.</strong> Questions about cultural connection and activities for young people sit alongside questions about family and practical support. This suggests that cultural participation should not be treated as an optional extra. It can be part of belonging, confidence, prevention and longer-term wellbeing.</p>
+        <p><strong>Needs do not arrive one at a time.</strong> Some questions point to interconnected practical, family and service-access needs. Sending a person to several separate services without coordination can create more work and frustration. A warm handover, a named contact and shared responsibility are more useful than a list of phone numbers.</p>
+        <p><strong>Access is part of the service.</strong> Transport, location, timing and the choice of where to meet can determine whether a person is able to participate at all. Flexible ways to engage should be planned from the beginning, not added only after someone has struggled.</p>
+      </div>
+
+      <div class="survey-report-section">
+        <h3>What this means for each audience</h3>
+        <div class="survey-report-audiences">
+          <div class="survey-report-audience">
+            <h4>For Aboriginal community members</h4>
+            <p>You should not need to know the right program name before asking for help. You can start with what matters to you and choose how you want to talk: by phone, at an office, through the survey, or by asking about a home or community visit. Asking about culture, family, young people, activities or practical support is a valid place to begin.</p>
+          </div>
+          <div class="survey-report-audience">
+            <h4>For government organisations</h4>
+            <p>The questions reinforce the need to fund and design services around relationships, cultural safety and coordinated follow-up. Success should include whether people reach the right worker, understand the next step and remain connected &mdash; not only whether a referral was issued or a form was completed.</p>
+          </div>
+          <div class="survey-report-audience">
+            <h4>For frontline workers</h4>
+            <p>Begin with the person's priorities. Explain choices in plain language, check how and where they would prefer to meet, ask about practical barriers and make a warm handover where another service is needed. Before ending the conversation, confirm who owns the next action and when the person can expect to hear back.</p>
+          </div>
+          <div class="survey-report-audience">
+            <h4>For community and service partners</h4>
+            <p>Keep information current, share clear entry points and work together when needs cross organisational boundaries. Community-led programs and mainstream services are strongest when each understands its role, respects consent and avoids making people retell the same story unnecessarily.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="survey-report-section">
+        <h3>Practical priorities for the month ahead</h3>
+        <ul>
+          <li>Keep the four direct contact choices visible: book a call, complete the survey, visit an office or request a home visit.</li>
+          <li>Respond in plain language and tell each person what will happen next, who is responsible and when follow-up is expected.</li>
+          <li>Make it easier to ask for help without first choosing a program or service category.</li>
+          <li>Build transport, location and other access needs into the first conversation.</li>
+          <li>Strengthen pathways for cultural connection, young people's participation, family support and community activities.</li>
+          <li>Use warm handovers and coordinated follow-up when a person's needs involve more than one organisation.</li>
+          <li>Continue protecting privacy while reporting back to community on the themes being heard and the actions being taken.</li>
+        </ul>
+      </div>
+
+      <div class="survey-report-section">
+        <h3>Continuing the conversation</h3>
+        <p>Monthly reporting is one way IRAAC can show that community questions are being heard. The next step is to keep the conversation open, make follow-up easier and return to community with clear information about what changed. If something is important to you, you can raise it in the way that feels most comfortable.</p>
+      </div>
+
+      <div class="survey-report-actions">
+        <a class="btn btn-primary" href="https://forms.gle/TQTjNc7kzJYXvPyy5">Have Your Say</a>
+        <a class="btn btn-outline" href="book-a-call.html">Book a Call</a>
+        <a class="btn btn-outline" href="offices.html">Visit an Office</a>
+        <a class="btn btn-outline" href="contact.html#home-visit">Request a Home Visit</a>
+      </div>
+    </article>
 
     <div class="insight-post">
       <div class="insight-meta"><span class="insight-tag">Governance</span><span class="insight-date">July 2026</span></div>
