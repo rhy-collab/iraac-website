@@ -163,6 +163,14 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
 .hero-choose .frontdoor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 @media (max-width: 900px) { .hero-choose .frontdoor-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .hero-choose .frontdoor-grid { grid-template-columns: 1fr; } .hero-choose .container { padding-top: 28px; padding-bottom: 36px; } }
+
+/* Cycle band — the listening-to-advocacy loop in one slim line */
+.cycle-band { background: #2a2420; border-top: 1px solid rgba(250,246,239,0.08); padding: 13px 0; }
+.cycle-band .container { display: flex; align-items: center; gap: 8px 26px; flex-wrap: wrap; }
+.cycle-title { color: var(--ochre-bright); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.cycle-step { color: #d9d0c3; font-size: 0.86rem; }
+.cycle-step b { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%; background: rgba(208,106,42,0.25); color: var(--ochre-bright); font-size: 0.72rem; margin-right: 6px; }
+@media (max-width: 640px) { .cycle-band .container { gap: 6px 16px; } .cycle-step { font-size: 0.8rem; } }
 </style>
 </head>
 <body>
@@ -182,7 +190,7 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
   <div class="vs-inner">
     <span class="vs-label">Have your voice heard:</span>
     <a class="vs-primary" href="book-a-call.html"><span aria-hidden="true">&#128222;</span>Book a Call</a>
-    <a href="https://forms.gle/TQTjNc7kzJYXvPyy5"><span aria-hidden="true">&#128203;</span>Quick Survey</a>
+    <a href="survey.html"><span aria-hidden="true">&#128203;</span>Have Your Say</a>
     <a href="offices.html"><span aria-hidden="true">&#127968;</span>Drop In</a>
     <a href="contact.html#home-visit"><span aria-hidden="true">&#128100;</span>Home Visit</a>
   </div>
@@ -193,7 +201,7 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
   <div class="container">
     <div class="eyebrow">Aboriginal Community Organisation &middot; Local Decision Making</div>
     <h1>Have your voice <em>heard.</em></h1>
-    <p class="hero-sub">A community organisation working with and for community &mdash; local programs, strong governance, real support.</p>
+    <p class="hero-sub">IRAAC listens to Aboriginal communities. What you share becomes protected evidence and practical recommendations to government &mdash; and we report back on what happens next.</p>
     <p class="choose-label">How would you like to connect?</p>
     <div class="frontdoor-grid">
       <a class="fd-card is-primary" href="book-a-call.html">
@@ -201,10 +209,10 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
         <h3>Book a Call</h3>
         <p>Free 15 minutes with an IRAAC officer, at a time that suits you.</p>
       </a>
-      <a class="fd-card" href="https://forms.gle/TQTjNc7kzJYXvPyy5">
+      <a class="fd-card" href="survey.html">
         <span class="fd-icon">&#128203;</span>
-        <h3>Quick Survey</h3>
-        <p>Tell us what you need &mdash; takes about two minutes.</p>
+        <h3>Have Your Say</h3>
+        <p>Tell us what's working and what's in the way &mdash; about two minutes.</p>
       </a>
       <a class="fd-card" href="offices.html">
         <span class="fd-icon">&#127968;</span>
@@ -219,6 +227,16 @@ footer.site-footer { background: var(--charcoal-deep); color: var(--sand); paddi
     </div>
   </div>
 </section>
+
+<div class="cycle-band">
+  <div class="container">
+    <span class="cycle-title">How your voice creates change</span>
+    <span class="cycle-step"><b>1</b> You share</span>
+    <span class="cycle-step"><b>2</b> We listen</span>
+    <span class="cycle-step"><b>3</b> We recommend to government</span>
+    <span class="cycle-step"><b>4</b> We report back</span>
+  </div>
+</div>
 
 <section>
   <div class="container">
